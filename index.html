@@ -4,267 +4,322 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MeshCue — Open Healthcare Infrastructure</title>
-  <meta name="description" content="Build medical devices. Connect patients to clinics. Manage resources. Open infrastructure for the communities that need it most.">
+  <meta name="description" content="Build affordable medical devices. Connect patients to clinics. Manage resources. Open-source infrastructure for the communities that need it most.">
   <meta property="og:title" content="MeshCue — Open Healthcare Infrastructure">
   <meta property="og:description" content="Build medical devices. Connect patients to clinics. Manage resources. Open-source platform for underserved healthcare.">
   <meta property="og:url" content="https://meshcue.com">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://meshcue.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="manifest" href="manifest.json">
+  <meta name="twitter:title" content="MeshCue — Open Healthcare Infrastructure">
+  <meta name="twitter:description" content="Build affordable medical devices. Connect patients to clinics. Manage resources.">
+  <meta name="theme-color" content="#0F172A">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230F172A'/><path d='M16 6L7 11l9 6 9-6-9-5z' fill='%2322d3ee'/><path d='M7 17l9 6 9-6' stroke='%234ade80' stroke-width='2' fill='none'/><path d='M7 11v6' stroke='%234ade80' stroke-width='2'/></svg>">
   <link rel="canonical" href="https://meshcue.com">
+  <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0F172A;
-      --bg-deep: #0a1021;
-      --surface: rgba(255,255,255,0.04);
-      --glass: rgba(0,0,0,0.50);
-      --glass-border: rgba(255,255,255,0.08);
-      --glass-hover: rgba(255,255,255,0.15);
+      --bg: #0a0f1a;
+      --bg-raised: #111827;
+      --surface: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.07);
+      --glass-hover: rgba(255,255,255,0.12);
       --text: #f1f5f9;
+      --text-secondary: #cbd5e1;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
+      --accent: #4ade80;
+      --accent-cyan: #22d3ee;
       --violet: #8B5CF6;
       --fuchsia: #D946EF;
       --orange: #F59E0B;
-      --cyan: #22d3ee;
-      --green: #4ade80;
       --red: #f87171;
-      --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Outfit', -apple-system, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    ::selection { background: rgba(139,92,246,0.3); }
-    a { color: inherit; text-decoration: none; }
 
-    /* ── Nav ──────────────────────────────── */
+    ::selection { background: rgba(74, 222, 128, 0.2); }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav ─────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 14px 0;
-      background: rgba(15,23,42,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      padding: 0;
+      background: rgba(10, 15, 26, 0.8);
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
       border-bottom: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
     }
-    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    nav.scrolled { background: rgba(10, 15, 26, 0.95); }
+    nav .container {
+      display: flex; justify-content: space-between; align-items: center;
+      height: 64px;
+    }
     .logo {
-      font-size: 20px; font-weight: 700; color: var(--text);
-      text-decoration: none; display: flex; align-items: center; gap: 10px;
+      font-size: 18px; font-weight: 800; color: var(--text);
+      display: flex; align-items: center; gap: 10px;
+      letter-spacing: -0.3px;
     }
-    .logo-icon {
-      width: 34px; height: 34px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--green), var(--cyan));
+    .logo-mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
       display: flex; align-items: center; justify-content: center;
-      position: relative;
+      box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
     }
-    .logo-icon svg { width: 18px; height: 18px; }
-    .logo-icon::after {
-      content: ''; position: absolute; inset: -2px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--green), var(--cyan));
-      z-index: -1; opacity: 0.3; filter: blur(6px);
+    .logo-mark svg { width: 18px; height: 18px; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted); font-size: 14px; font-weight: 500;
+      transition: color 0.2s; position: relative;
     }
-    .nav-links { display: flex; gap: 28px; align-items: center; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
     .btn-nav {
-      background: linear-gradient(135deg, var(--green), var(--cyan));
-      color: var(--bg) !important; padding: 8px 22px; border-radius: 100px;
-      font-weight: 700; font-size: 14px;
-      box-shadow: 0 4px 20px rgba(74,222,128,0.2);
-      transition: all 0.3s var(--spring);
+      background: var(--accent); color: var(--bg) !important;
+      padding: 8px 20px; border-radius: 8px;
+      font-weight: 700; font-size: 13px; letter-spacing: 0.2px;
+      transition: all 0.2s var(--ease);
     }
-    .btn-nav:hover { transform: scale(1.04); box-shadow: 0 6px 28px rgba(74,222,128,0.3); }
+    .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74, 222, 128, 0.3); }
 
-    /* ── Hero ─────────────────────────────── */
+    /* Mobile menu */
+    .menu-toggle {
+      display: none; background: none; border: none;
+      color: var(--text); cursor: pointer; padding: 8px;
+    }
+    .menu-toggle svg { width: 24px; height: 24px; }
+
+    /* ── Hero ─────────────────────────────────── */
     .hero {
-      padding: 160px 0 80px; text-align: center; position: relative;
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
     }
     .hero::before {
-      content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
-      width: 1000px; height: 700px;
-      background: radial-gradient(ellipse, rgba(74,222,128,0.08) 0%, rgba(34,211,238,0.04) 30%, rgba(139,92,246,0.03) 50%, transparent 70%);
+      content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 1200px; height: 800px;
+      background: radial-gradient(ellipse 60% 50%, rgba(74, 222, 128, 0.07) 0%, rgba(34, 211, 238, 0.04) 30%, transparent 60%);
       pointer-events: none;
     }
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--glass); backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border); color: var(--text-muted);
-      font-size: 13px; font-weight: 600; padding: 8px 18px;
-      border-radius: 100px; margin-bottom: 28px;
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center;
     }
-    .badge-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.15);
+      color: var(--accent); font-size: 12px; font-weight: 600;
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 24px;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
       animation: pulse 2s infinite;
     }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
     h1 {
-      font-size: clamp(40px, 7vw, 72px); font-weight: 900;
-      line-height: 1.05; margin-bottom: 24px; letter-spacing: -2.5px;
+      font-size: clamp(36px, 5vw, 56px); font-weight: 900;
+      line-height: 1.08; margin-bottom: 20px; letter-spacing: -2px;
+      color: var(--text);
     }
-    h1 .gr {
-      background: linear-gradient(135deg, var(--green), var(--cyan), var(--violet));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    .hero-gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero-sub {
-      font-size: 19px; color: var(--text-muted); max-width: 580px;
-      margin: 0 auto 48px; line-height: 1.7;
+      font-size: 17px; color: var(--text-secondary); line-height: 1.7;
+      margin-bottom: 36px; max-width: 460px;
     }
-    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-primary {
-      background: linear-gradient(135deg, var(--green), var(--cyan));
-      color: var(--bg); padding: 16px 36px; border-radius: 100px;
-      font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700;
-      border: none; cursor: pointer; transition: all 0.3s var(--spring);
-      box-shadow: 0 8px 32px rgba(74,222,128,0.2);
+      background: var(--accent); color: var(--bg);
+      padding: 14px 28px; border-radius: 10px;
+      font-family: inherit; font-size: 15px; font-weight: 700;
+      border: none; cursor: pointer; transition: all 0.2s var(--ease);
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-primary:hover { transform: scale(1.04); box-shadow: 0 12px 40px rgba(74,222,128,0.3); }
-    .btn-secondary {
-      background: var(--glass); backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border); color: var(--text);
-      padding: 16px 36px; border-radius: 100px;
-      font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600;
-      cursor: pointer; transition: all 0.3s var(--spring);
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74, 222, 128, 0.25); }
+    .btn-ghost {
+      background: transparent; border: 1px solid var(--glass-border);
+      color: var(--text); padding: 14px 28px; border-radius: 10px;
+      font-family: inherit; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s var(--ease);
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-secondary:hover { border-color: var(--glass-hover); transform: translateY(-2px); }
+    .btn-ghost:hover { border-color: var(--glass-hover); background: var(--glass); }
 
-    /* ── Stats Bar ────────────────────────── */
-    .stats-bar {
-      display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
-      padding: 0 0 80px;
+    /* Hero visual — terminal mockup */
+    .hero-visual { position: relative; z-index: 1; }
+    .terminal {
+      background: var(--bg-raised); border: 1px solid var(--glass-border);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
     }
-    .stat { text-align: center; }
+    .terminal-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px; background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.red { background: #f87171; }
+    .terminal-dot.yellow { background: #fbbf24; }
+    .terminal-dot.green { background: #4ade80; }
+    .terminal-title {
+      flex: 1; text-align: center; font-size: 12px;
+      color: var(--text-dim); font-weight: 500;
+    }
+    .terminal-body {
+      padding: 20px; font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; line-height: 1.8;
+    }
+    .terminal-body .prompt { color: var(--accent); }
+    .terminal-body .cmd { color: var(--text); }
+    .terminal-body .comment { color: var(--text-dim); }
+    .terminal-body .output { color: var(--text-muted); }
+    .terminal-body .file { color: var(--accent-cyan); }
+    .terminal-body .success { color: var(--accent); }
+    .terminal-cursor {
+      display: inline-block; width: 8px; height: 16px;
+      background: var(--accent); margin-left: 2px;
+      animation: blink 1s step-end infinite; vertical-align: text-bottom;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ── Stats ────────────────────────────────── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: var(--glass-border); border-radius: var(--radius);
+      overflow: hidden; margin: 80px 0;
+    }
+    .stat {
+      background: var(--bg); padding: 28px 24px; text-align: center;
+    }
     .stat-value {
-      font-size: 32px; font-weight: 800; letter-spacing: -1px;
-      background: linear-gradient(135deg, var(--green), var(--cyan));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      font-size: 28px; font-weight: 800; letter-spacing: -1px;
+      color: var(--accent);
     }
-    .stat-label { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-top: 2px; }
+    .stat-label { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-top: 4px; }
 
-    /* ── Section Common ──────────────────── */
+    /* ── Section Common ──────────────────────── */
     section { padding: 80px 0; }
-    .section-label {
-      font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    .section-eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
       text-transform: uppercase; text-align: center; margin-bottom: 12px;
+      color: var(--accent);
     }
     .section-title {
-      font-size: clamp(28px,4vw,44px); font-weight: 800;
-      text-align: center; margin-bottom: 12px; letter-spacing: -1px;
+      font-size: clamp(28px, 4vw, 42px); font-weight: 800;
+      text-align: center; margin-bottom: 12px; letter-spacing: -1.5px;
     }
     .section-sub {
       text-align: center; color: var(--text-muted); font-size: 16px;
-      max-width: 520px; margin: 0 auto 48px; line-height: 1.7;
+      max-width: 520px; margin: 0 auto 56px; line-height: 1.7;
     }
 
-    /* ── Pillars ──────────────────────────── */
-    .pillars-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    /* ── Pillars ──────────────────────────────── */
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pillar {
+      background: var(--bg-raised); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      transition: all 0.3s var(--ease); position: relative; overflow: hidden;
     }
-    .pillar-card {
-      background: var(--glass); backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); border-radius: 24px;
-      padding: 36px 28px; transition: all 0.4s var(--spring);
-      position: relative; overflow: hidden;
+    .pillar::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
     }
-    .pillar-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      border-radius: 24px 24px 0 0;
-    }
-    .pillar-card:hover { transform: translateY(-6px); }
+    .pillar:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.12); }
     .pillar-forge::before { background: linear-gradient(90deg, var(--violet), var(--fuchsia)); }
-    .pillar-forge:hover { border-color: rgba(139,92,246,0.3); }
-    .pillar-connect::before { background: linear-gradient(90deg, var(--green), var(--cyan)); }
-    .pillar-connect:hover { border-color: rgba(74,222,128,0.3); }
+    .pillar-forge:hover { box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1); }
+    .pillar-connect::before { background: linear-gradient(90deg, var(--accent), var(--accent-cyan)); }
+    .pillar-connect:hover { box-shadow: 0 8px 32px rgba(74, 222, 128, 0.1); }
     .pillar-ram::before { background: linear-gradient(90deg, var(--orange), var(--red)); }
-    .pillar-ram:hover { border-color: rgba(245,158,11,0.3); }
+    .pillar-ram:hover { box-shadow: 0 8px 32px rgba(245, 158, 11, 0.1); }
     .pillar-icon {
-      width: 52px; height: 52px; border-radius: 14px;
+      width: 44px; height: 44px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px; margin-bottom: 20px;
+      margin-bottom: 20px;
     }
-    .pillar-forge .pillar-icon { background: rgba(139,92,246,0.12); }
-    .pillar-connect .pillar-icon { background: rgba(74,222,128,0.12); }
-    .pillar-ram .pillar-icon { background: rgba(245,158,11,0.12); }
-    .pillar-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
-    .pillar-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
-    .pillar-features { list-style: none; padding: 0; }
+    .pillar-forge .pillar-icon { background: rgba(139, 92, 246, 0.1); color: var(--violet); }
+    .pillar-connect .pillar-icon { background: rgba(74, 222, 128, 0.1); color: var(--accent); }
+    .pillar-ram .pillar-icon { background: rgba(245, 158, 11, 0.1); color: var(--orange); }
+    .pillar h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+    .pillar p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+    .pillar-features { list-style: none; }
     .pillar-features li {
-      font-size: 14px; color: var(--text-muted); padding: 6px 0;
+      font-size: 13px; color: var(--text-muted); padding: 5px 0;
       display: flex; align-items: center; gap: 10px;
     }
     .pillar-features li::before {
-      content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+      content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0;
     }
     .pillar-forge .pillar-features li::before { background: var(--violet); }
-    .pillar-connect .pillar-features li::before { background: var(--green); }
+    .pillar-connect .pillar-features li::before { background: var(--accent); }
     .pillar-ram .pillar-features li::before { background: var(--orange); }
     .pillar-link {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 14px; font-weight: 600; margin-top: 16px; transition: gap 0.2s;
+      font-size: 13px; font-weight: 600; margin-top: 20px;
+      transition: gap 0.2s;
     }
     .pillar-forge .pillar-link { color: var(--violet); }
-    .pillar-connect .pillar-link { color: var(--green); }
+    .pillar-connect .pillar-link { color: var(--accent); }
     .pillar-ram .pillar-link { color: var(--orange); }
     .pillar-link:hover { gap: 10px; }
 
-    /* ── How It Works ─────────────────────── */
-    .flow-visual {
-      max-width: 800px; margin: 0 auto;
-      background: var(--glass); backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); border-radius: 24px;
-      padding: 40px; position: relative;
+    /* ── How It Works ─────────────────────────── */
+    .flow {
+      max-width: 720px; margin: 0 auto; position: relative;
+    }
+    .flow::before {
+      content: ''; position: absolute; left: 22px; top: 36px; bottom: 36px;
+      width: 2px; background: linear-gradient(to bottom, var(--violet), var(--accent), var(--orange), var(--accent-cyan));
+      opacity: 0.2; border-radius: 2px;
     }
     .flow-step {
       display: flex; gap: 20px; align-items: flex-start;
-      padding: 16px 0; position: relative;
+      padding: 20px 0; position: relative;
     }
-    .flow-step + .flow-step { border-top: 1px solid rgba(255,255,255,0.04); }
     .flow-num {
-      width: 36px; height: 36px; border-radius: 50%;
+      width: 44px; height: 44px; border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 15px; flex-shrink: 0;
+      font-weight: 800; font-size: 14px; flex-shrink: 0;
+      border: 1px solid var(--glass-border);
+      background: var(--bg-raised);
     }
-    .flow-step:nth-child(1) .flow-num { background: rgba(139,92,246,0.15); color: var(--violet); }
-    .flow-step:nth-child(2) .flow-num { background: rgba(74,222,128,0.15); color: var(--green); }
-    .flow-step:nth-child(3) .flow-num { background: rgba(245,158,11,0.15); color: var(--orange); }
-    .flow-step:nth-child(4) .flow-num { background: rgba(34,211,238,0.15); color: var(--cyan); }
-    .flow-content h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .flow-step:nth-child(1) .flow-num { color: var(--violet); border-color: rgba(139, 92, 246, 0.2); }
+    .flow-step:nth-child(2) .flow-num { color: var(--accent); border-color: rgba(74, 222, 128, 0.2); }
+    .flow-step:nth-child(3) .flow-num { color: var(--orange); border-color: rgba(245, 158, 11, 0.2); }
+    .flow-step:nth-child(4) .flow-num { color: var(--accent-cyan); border-color: rgba(34, 211, 238, 0.2); }
+    .flow-content { padding-top: 4px; }
+    .flow-content h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.3px; }
     .flow-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-    /* ── Impact Section ───────────────────── */
-    .impact-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
-    }
-    .impact-card {
-      background: var(--glass); backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border); border-radius: 20px;
-      padding: 28px 24px; text-align: center; transition: all 0.3s var(--spring);
-    }
-    .impact-card:hover { border-color: rgba(74,222,128,0.2); transform: translateY(-3px); }
-    .impact-num {
-      font-size: 28px; font-weight: 800; margin-bottom: 4px;
-    }
-    .impact-card:nth-child(1) .impact-num { color: var(--green); }
-    .impact-card:nth-child(2) .impact-num { color: var(--cyan); }
-    .impact-card:nth-child(3) .impact-num { color: var(--violet); }
-    .impact-card:nth-child(4) .impact-num { color: var(--orange); }
-    .impact-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .impact-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
-
-    /* ── Mesh Network Visual ──────────────── */
+    /* ── Mesh Network ─────────────────────────── */
+    .mesh-section { position: relative; }
     .mesh-visual {
-      position: relative; height: 360px; margin: 0 auto;
-      max-width: 800px; overflow: hidden;
+      position: relative; height: 380px; margin: 0 auto;
+      max-width: 800px; border-radius: var(--radius-lg);
+      overflow: hidden; border: 1px solid var(--glass-border);
+      background: var(--bg-raised);
     }
     .mesh-canvas { width: 100%; height: 100%; }
     .mesh-overlay {
@@ -272,160 +327,243 @@
       align-items: center; justify-content: center;
       pointer-events: none;
     }
-    .mesh-center-label {
-      background: var(--glass); backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); border-radius: 20px;
+    .mesh-label {
+      background: rgba(10, 15, 26, 0.85); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: var(--radius);
       padding: 20px 32px; text-align: center; pointer-events: auto;
     }
-    .mesh-center-label h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .mesh-center-label p { font-size: 13px; color: var(--text-dim); }
+    .mesh-label h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .mesh-label p { font-size: 13px; color: var(--text-dim); }
 
-    /* ── Open Source ──────────────────────── */
-    .open-source-block {
-      background: var(--glass); backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); border-radius: 24px;
-      padding: 48px; text-align: center; max-width: 720px; margin: 0 auto;
+    /* ── Impact ───────────────────────────────── */
+    .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .impact-card {
+      background: var(--bg-raised); border: 1px solid var(--glass-border);
+      border-radius: var(--radius); padding: 28px 20px; text-align: center;
+      transition: all 0.3s var(--ease);
     }
-    .open-source-block h3 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .open-source-block p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .impact-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
+    .impact-num { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+    .impact-card:nth-child(1) .impact-num { color: var(--accent); }
+    .impact-card:nth-child(2) .impact-num { color: var(--accent-cyan); }
+    .impact-card:nth-child(3) .impact-num { color: var(--violet); }
+    .impact-card:nth-child(4) .impact-num { color: var(--orange); }
+    .impact-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .impact-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+    /* ── Open Source ──────────────────────────── */
+    .oss-block {
+      background: var(--bg-raised); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg); padding: 56px 48px;
+      text-align: center; max-width: 720px; margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+    .oss-block::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-cyan), var(--violet));
+    }
+    .oss-block h3 { font-size: 24px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .oss-block p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
     .repo-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .repo-link {
-      background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
       color: var(--text-muted); font-size: 14px; font-weight: 600;
-      padding: 12px 24px; border-radius: 14px; transition: all 0.2s;
+      padding: 12px 20px; border-radius: 10px; transition: all 0.2s;
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .repo-link:hover { background: rgba(255,255,255,0.08); border-color: var(--glass-hover); color: var(--text); }
+    .repo-link:hover { background: rgba(255,255,255,0.07); color: var(--text); border-color: rgba(255,255,255,0.12); }
     .repo-link svg { width: 16px; height: 16px; }
 
-    /* ── CTA ──────────────────────────────── */
-    .cta-section {
+    /* ── CTA ──────────────────────────────────── */
+    .cta {
       padding: 100px 0; text-align: center; position: relative;
     }
-    .cta-section::before {
+    .cta::before {
       content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 900px; height: 500px;
-      background: radial-gradient(ellipse, rgba(74,222,128,0.06) 0%, rgba(34,211,238,0.03) 40%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(74, 222, 128, 0.05) 0%, transparent 60%);
       pointer-events: none;
     }
-    .cta-section h2 {
+    .cta h2 {
       font-size: clamp(28px, 4vw, 40px); font-weight: 800;
       margin-bottom: 16px; letter-spacing: -1px;
     }
-    .cta-section p { color: var(--text-muted); font-size: 16px; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta p { color: var(--text-muted); font-size: 16px; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
 
-    /* ── Footer ───────────────────────────── */
+    /* ── Footer ───────────────────────────────── */
     footer {
-      padding: 40px 0; border-top: 1px solid var(--glass-border);
+      padding: 48px 0; border-top: 1px solid var(--glass-border);
     }
-    .footer-inner {
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+      margin-bottom: 48px;
     }
-    .footer-left { font-size: 14px; color: var(--text-dim); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: var(--text-dim); font-size: 14px; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--text-muted); }
+    .footer-brand p { color: var(--text-dim); font-size: 14px; line-height: 1.7; margin-top: 12px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .footer-col a { display: block; color: var(--text-dim); font-size: 14px; padding: 4px 0; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; border-top: 1px solid var(--glass-border);
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-bottom p { font-size: 13px; color: var(--text-dim); }
+    .footer-socials { display: flex; gap: 16px; }
+    .footer-socials a {
+      color: var(--text-dim); transition: color 0.2s;
+      display: flex; align-items: center;
+    }
+    .footer-socials a:hover { color: var(--text); }
+    .footer-socials svg { width: 18px; height: 18px; }
 
-    /* ── Responsive ───────────────────────── */
+    /* ── Responsive ───────────────────────────── */
     @media (max-width: 900px) {
-      .pillars-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { max-width: 520px; margin: 0 auto; }
+      .pillars { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
     @media (max-width: 640px) {
-      .nav-links a:not(.btn-nav) { display: none; }
-      .stats-bar { gap: 24px; }
-      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(10, 15, 26, 0.97);
+        backdrop-filter: blur(24px);
+        padding: 24px; gap: 20px;
+        border-bottom: 1px solid var(--glass-border);
+      }
+      .menu-toggle { display: block; }
       .hero { padding: 120px 0 60px; }
-    }
-    @media (max-width: 480px) {
       .impact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
     }
 
-    /* ── Animations ───────────────────────── */
-    .fade-up {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s var(--spring);
+    /* ── Animations ───────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s var(--ease);
     }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
   </style>
 </head>
 <body>
 
-<!-- ── Nav ──────────────────────────────── -->
-<nav>
+<!-- ── Nav ──────────────────────────────────── -->
+<nav id="nav">
   <div class="container">
     <a href="/" class="logo">
-      <div class="logo-icon">
+      <div class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
           <path d="M12 3L3 9l9 6 9-6-9-6z"/><path d="M3 15l9 6 9-6"/><path d="M3 9v6"/>
         </svg>
       </div>
-      <span>Mesh<span style="font-weight: 800">Cue</span></span>
+      <span>Mesh<span style="font-weight: 900">Cue</span></span>
     </a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#pillars">Platform</a>
       <a href="#how">How It Works</a>
       <a href="#impact">Impact</a>
-      <a href="https://github.com/meshcue" target="_blank">GitHub</a>
-      <a href="https://forge.meshcue.com" class="btn-nav">Open Forge</a>
+      <a href="https://github.com/Meshcue" target="_blank">GitHub</a>
+      <a href="https://github.com/Meshcue/meshcue-forge" class="btn-nav">Get Started</a>
     </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
-<!-- ── Hero ─────────────────────────────── -->
+<!-- ── Hero ─────────────────────────────────── -->
 <section class="hero">
   <div class="container">
-    <div class="badge"><span class="badge-dot"></span> Open-source healthcare infrastructure</div>
-    <h1>Healthcare for<br><span class="gr">every community.</span></h1>
-    <p class="hero-sub">
-      Build affordable medical devices. Connect patients to clinics over SMS and WhatsApp.
-      Manage resources from medications to equipment. All open-source.
-    </p>
-    <div class="hero-actions">
-      <a href="https://forge.meshcue.com" class="btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        Build a Device
-      </a>
-      <a href="https://github.com/meshcue/forge" target="_blank" class="btn-secondary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        View on GitHub
-      </a>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge"><span class="hero-badge-dot"></span> Open-source healthcare infrastructure</div>
+        <h1>Build healthcare<br>for <span class="hero-gradient">every community.</span></h1>
+        <p class="hero-sub">
+          Affordable medical devices. Patient messaging over SMS and WhatsApp.
+          Resource management for every clinic. All open-source, all free.
+        </p>
+        <div class="hero-actions">
+          <a href="https://github.com/Meshcue/meshcue-forge" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            Start Building
+          </a>
+          <a href="#how" class="btn-ghost">
+            See How It Works
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">meshcue-forge</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="prompt">$</span> <span class="cmd">meshcue forge describe</span></div>
+            <div><span class="comment"># "ESP32 pulse oximeter, OLED, battery, &lt;$5"</span></div>
+            <br>
+            <div><span class="output">Generating MHDL spec...</span></div>
+            <div><span class="output">Building artifacts:</span></div>
+            <div>&nbsp;&nbsp;<span class="file">diagram.json</span> <span class="comment">circuit</span></div>
+            <div>&nbsp;&nbsp;<span class="file">main.ino</span> <span class="comment">firmware</span></div>
+            <div>&nbsp;&nbsp;<span class="file">enclosure.scad</span> <span class="comment">3D case</span></div>
+            <div>&nbsp;&nbsp;<span class="file">bom.csv</span> <span class="comment">$3.20 total</span></div>
+            <div>&nbsp;&nbsp;<span class="file">ASSEMBLY.md</span> <span class="comment">build guide</span></div>
+            <br>
+            <div><span class="success">Done.</span> Ready to print and assemble.<span class="terminal-cursor"></span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── Stats ────────────────────────────── -->
-<div class="stats-bar container fade-up">
-  <div class="stat">
-    <div class="stat-value">28+</div>
-    <div class="stat-label">MCP Tools</div>
-  </div>
-  <div class="stat">
-    <div class="stat-value">4</div>
-    <div class="stat-label">Channels (SMS, WhatsApp, USSD, Voice)</div>
-  </div>
-  <div class="stat">
-    <div class="stat-value">&lt;$5</div>
-    <div class="stat-label">Per device BOM cost</div>
-  </div>
-  <div class="stat">
-    <div class="stat-value">100%</div>
-    <div class="stat-label">Open Source</div>
+<!-- ── Stats ────────────────────────────────── -->
+<div class="container">
+  <div class="stats reveal">
+    <div class="stat">
+      <div class="stat-value">28+</div>
+      <div class="stat-label">MCP Tools</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Channels</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">&lt;$5</div>
+      <div class="stat-label">Per Device</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">MIT</div>
+      <div class="stat-label">Licensed</div>
+    </div>
   </div>
 </div>
 
-<!-- ── Three Pillars ─────────────────────── -->
+<!-- ── Three Pillars ─────────────────────────── -->
 <section id="pillars">
   <div class="container">
-    <div class="section-label" style="background: linear-gradient(135deg, var(--green), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">The Platform</div>
+    <div class="section-eyebrow">The Platform</div>
     <h2 class="section-title">Three pillars. One mission.</h2>
     <p class="section-sub">Every clinic needs devices, communication, and resources. MeshCue connects all three into a single open platform.</p>
 
-    <div class="pillars-grid">
-      <!-- Forge -->
-      <div class="pillar-card pillar-forge fade-up">
+    <div class="pillars">
+      <div class="pillar pillar-forge reveal">
         <div class="pillar-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
         </div>
         <h3>Forge</h3>
         <p>AI hardware compiler. Describe a medical device in plain English, get circuits, firmware, 3D-printable enclosures, and docs.</p>
@@ -433,16 +571,15 @@
           <li>ESP32, RP2040, STM32 support</li>
           <li>KiCad PCB, Arduino firmware</li>
           <li>OpenSCAD 3D enclosures</li>
-          <li>Medical device documentation (IEC 62304, FMEA)</li>
+          <li>Medical docs (IEC 62304, FMEA)</li>
           <li>Pulse oximeters, thermometers, BP monitors</li>
         </ul>
-        <a href="https://forge.meshcue.com" class="pillar-link">Open Forge <span>&rarr;</span></a>
+        <a href="https://github.com/Meshcue/meshcue-forge" class="pillar-link">View on GitHub <span>&rarr;</span></a>
       </div>
 
-      <!-- Connect -->
-      <div class="pillar-card pillar-connect fade-up">
+      <div class="pillar pillar-connect reveal reveal-delay-1">
         <div class="pillar-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"/></svg>
         </div>
         <h3>Connect</h3>
         <p>Patient messaging for clinics without internet. SMS, WhatsApp, USSD, and voice calls with auto-triage and fallback chains.</p>
@@ -450,40 +587,39 @@
           <li>Africa's Talking, Twilio, Meta Cloud API</li>
           <li>Auto-triage: vitals &rarr; priority &rarr; routing</li>
           <li>9 languages (EN, FR, SW, AR, PT...)</li>
-          <li>Consent management & HIPAA-aware logging</li>
+          <li>Consent management &amp; HIPAA logging</li>
           <li>Exponential backoff with channel fallback</li>
         </ul>
-        <a href="https://connect.meshcue.com" class="pillar-link">Explore Connect <span>&rarr;</span></a>
+        <a href="https://github.com/Meshcue" class="pillar-link">Coming soon <span>&rarr;</span></a>
       </div>
 
-      <!-- RAM -->
-      <div class="pillar-card pillar-ram fade-up">
+      <div class="pillar pillar-ram reveal reveal-delay-2">
         <div class="pillar-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
         </div>
         <h3>RAM</h3>
         <p>Resource &amp; Asset Management. Track devices, medications, supply orders, and maintenance across every clinic.</p>
         <ul class="pillar-features">
-          <li>Asset lifecycle tracking (register &rarr; maintain &rarr; retire)</li>
+          <li>Asset lifecycle (register &rarr; maintain &rarr; retire)</li>
           <li>Low-stock &amp; expiry alerts</li>
           <li>Supply chain ordering &amp; fulfillment</li>
           <li>Forge-built devices auto-registered</li>
           <li>Per-clinic dashboard &amp; analytics</li>
         </ul>
-        <a href="#" class="pillar-link">Coming soon <span>&rarr;</span></a>
+        <a href="https://github.com/Meshcue" class="pillar-link">Coming soon <span>&rarr;</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── How It Works ───────────────────────── -->
+<!-- ── How It Works ───────────────────────────── -->
 <section id="how">
   <div class="container">
-    <div class="section-label" style="background: linear-gradient(135deg, var(--violet), var(--fuchsia)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">How It Works</div>
+    <div class="section-eyebrow" style="color: var(--violet);">How It Works</div>
     <h2 class="section-title">From description to deployed clinic</h2>
     <p class="section-sub">One platform handles the entire lifecycle: design, build, connect, manage.</p>
 
-    <div class="flow-visual fade-up">
+    <div class="flow reveal">
       <div class="flow-step">
         <div class="flow-num">1</div>
         <div class="flow-content">
@@ -495,37 +631,37 @@
         <div class="flow-num">2</div>
         <div class="flow-content">
           <h4>Forge builds everything</h4>
-          <p>Circuit diagram, Arduino firmware with real sensor calibration, 3D-printable enclosure, BOM, medical documentation &mdash; in seconds.</p>
+          <p>Circuit diagram, Arduino firmware with sensor calibration, 3D-printable enclosure, BOM, and medical documentation &mdash; in seconds.</p>
         </div>
       </div>
       <div class="flow-step">
         <div class="flow-num">3</div>
         <div class="flow-content">
           <h4>Connect links patients</h4>
-          <p>Device alerts auto-triage to the right channel. Critical SpO2 reading? SMS the nurse immediately. Routine follow-up? WhatsApp in their language.</p>
+          <p>Device alerts auto-triage to the right channel. Critical SpO2? SMS the nurse. Routine follow-up? WhatsApp in their language.</p>
         </div>
       </div>
       <div class="flow-step">
         <div class="flow-num">4</div>
         <div class="flow-content">
           <h4>RAM tracks it all</h4>
-          <p>Every device is auto-registered as an asset. Stock levels, maintenance schedules, supply orders &mdash; one dashboard per clinic.</p>
+          <p>Every device is auto-registered. Stock levels, maintenance schedules, supply orders &mdash; one dashboard per clinic.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Mesh Network Visual ────────────────── -->
-<section id="mesh">
+<!-- ── Mesh Network ──────────────────────────── -->
+<section class="mesh-section" id="mesh">
   <div class="container">
-    <div class="section-label" style="background: linear-gradient(135deg, var(--cyan), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">The Mesh</div>
+    <div class="section-eyebrow" style="color: var(--accent-cyan);">The Mesh</div>
     <h2 class="section-title">Peer-to-peer healthcare network</h2>
     <p class="section-sub">Clinics form a mesh. Share compute, offload builds, relay messages when connectivity drops.</p>
-    <div class="mesh-visual fade-up">
+    <div class="mesh-visual reveal">
       <canvas class="mesh-canvas" id="meshCanvas"></canvas>
       <div class="mesh-overlay">
-        <div class="mesh-center-label">
+        <div class="mesh-label">
           <h3>MeshCue Network</h3>
           <p>Nodes discover each other. Builds offload. Messages relay.</p>
         </div>
@@ -534,13 +670,13 @@
   </div>
 </section>
 
-<!-- ── Impact ──────────────────────────────── -->
+<!-- ── Impact ────────────────────────────────── -->
 <section id="impact">
   <div class="container">
-    <div class="section-label" style="background: linear-gradient(135deg, var(--green), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Impact</div>
+    <div class="section-eyebrow">Impact</div>
     <h2 class="section-title">Built for where it matters most</h2>
     <p class="section-sub">Healthcare infrastructure shouldn't require a hospital IT department.</p>
-    <div class="impact-grid fade-up">
+    <div class="impact-grid reveal">
       <div class="impact-card">
         <div class="impact-num">&lt;$5</div>
         <h4>Device Cost</h4>
@@ -549,7 +685,7 @@
       <div class="impact-card">
         <div class="impact-num">SMS</div>
         <h4>Offline-First</h4>
-        <p>Works on 2G networks. No smartphone required. USSD menus for feature phones.</p>
+        <p>Works on 2G. No smartphone needed. USSD menus for feature phones.</p>
       </div>
       <div class="impact-card">
         <div class="impact-num">9</div>
@@ -559,157 +695,196 @@
       <div class="impact-card">
         <div class="impact-num">OSS</div>
         <h4>Open Source</h4>
-        <p>MIT licensed. Fork it, deploy it, improve it. No vendor lock-in, no licensing fees.</p>
+        <p>MIT licensed. Fork it, deploy it, improve it. No vendor lock-in.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Open Source ─────────────────────────── -->
+<!-- ── Open Source ─────────────────────────────── -->
 <section>
   <div class="container">
-    <div class="open-source-block fade-up">
+    <div class="oss-block reveal">
       <h3>Built in the open</h3>
       <p>MeshCue is free and open-source software. Every line of code, every device spec, every protocol. Fork it, audit it, improve it.</p>
       <div class="repo-links">
-        <a href="https://github.com/meshcue/forge" target="_blank" class="repo-link">
+        <a href="https://github.com/Meshcue/meshcue-forge" target="_blank" class="repo-link">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          meshcue/forge
+          Meshcue/meshcue-forge
         </a>
-        <a href="https://github.com/meshcue" target="_blank" class="repo-link">
+        <a href="https://github.com/Meshcue" target="_blank" class="repo-link">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          All MeshCue repos
+          All Repositories
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CTA ────────────────────────────────── -->
-<section class="cta-section">
+<!-- ── CTA ────────────────────────────────────── -->
+<section class="cta">
   <div class="container">
-    <h2>Start building for<br><span class="gr">your community</span></h2>
-    <p>Open Forge, describe what your clinic needs, and get buildable device specs in seconds. No signup required.</p>
-    <div class="hero-actions">
-      <a href="https://forge.meshcue.com" class="btn-primary">
-        Open Forge
-      </a>
-      <a href="https://github.com/meshcue/forge" target="_blank" class="btn-secondary">
-        Read the Docs
-      </a>
+    <h2>Start building for<br><span class="hero-gradient">your community</span></h2>
+    <p>Describe what your clinic needs and get buildable device specs in seconds. No signup required.</p>
+    <div class="hero-actions" style="justify-content: center;">
+      <a href="https://github.com/Meshcue/meshcue-forge" class="btn-primary">Get Started</a>
+      <a href="https://github.com/Meshcue/meshcue-forge" target="_blank" class="btn-ghost">Read the Docs</a>
     </div>
   </div>
 </section>
 
-<!-- ── Footer ────────────────────────────── -->
+<!-- ── Footer ────────────────────────────────── -->
 <footer>
-  <div class="container footer-inner">
-    <div class="footer-left">
-      MeshCue &mdash; Open healthcare infrastructure.
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-mark" style="width: 28px; height: 28px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="width: 14px; height: 14px;">
+              <path d="M12 3L3 9l9 6 9-6-9-6z"/><path d="M3 15l9 6 9-6"/><path d="M3 9v6"/>
+            </svg>
+          </div>
+          <span>Mesh<span style="font-weight: 900">Cue</span></span>
+        </div>
+        <p>Open healthcare infrastructure for the communities that need it most.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="https://github.com/Meshcue/meshcue-forge">Forge</a>
+        <a href="#pillars">Connect</a>
+        <a href="#pillars">RAM</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://github.com/Meshcue/meshcue-forge">Documentation</a>
+        <a href="https://github.com/Meshcue">GitHub</a>
+        <a href="https://github.com/Meshcue/meshcue-forge/issues">Issues</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/Meshcue/meshcue-forge/discussions">Discussions</a>
+        <a href="https://github.com/Meshcue/meshcue-forge#contributing">Contributing</a>
+        <a href="https://github.com/Meshcue/meshcue-forge/blob/main/LICENSE">MIT License</a>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="https://forge.meshcue.com">Forge</a>
-      <a href="https://github.com/meshcue">GitHub</a>
-      <a href="mailto:hello@meshcue.com">Contact</a>
+    <div class="footer-bottom">
+      <p>MeshCue &mdash; Open healthcare infrastructure.</p>
+      <div class="footer-socials">
+        <a href="https://github.com/Meshcue" target="_blank" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </footer>
 
-<!-- ── Scripts ────────────────────────────── -->
+<!-- ── Scripts ────────────────────────────────── -->
 <script>
-// Intersection Observer for fade-up animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-}, { threshold: 0.15 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
 
-// Mesh network canvas animation
+// Mobile menu toggle
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('#navLinks a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// Intersection Observer for reveal animations
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Mesh network canvas
 (function() {
   const canvas = document.getElementById('meshCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let W, H, nodes = [], mouse = { x: -1000, y: -1000 };
+  const dpr = window.devicePixelRatio || 1;
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
-    W = canvas.width = rect.width * devicePixelRatio;
-    H = canvas.height = rect.height * devicePixelRatio;
-    canvas.style.width = rect.width + 'px';
-    canvas.style.height = rect.height + 'px';
-    ctx.scale(devicePixelRatio, devicePixelRatio);
+    W = rect.width; H = rect.height;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function createNodes() {
+  function init() {
     nodes = [];
-    const count = Math.min(Math.floor((W / devicePixelRatio) / 18), 50);
+    const count = Math.min(Math.floor(W / 16), 60);
     for (let i = 0; i < count; i++) {
       nodes.push({
-        x: Math.random() * (W / devicePixelRatio),
-        y: Math.random() * (H / devicePixelRatio),
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 2 + 1.5,
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 1.5,
+        type: Math.random() < 0.15 ? 'hub' : 'node',
       });
     }
   }
 
   function draw() {
-    ctx.clearRect(0, 0, W / devicePixelRatio, H / devicePixelRatio);
-    const maxDist = 120;
+    ctx.clearRect(0, 0, W, H);
+    const maxDist = 110;
 
-    // Draw connections
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
+        const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < maxDist) {
-          const alpha = (1 - dist / maxDist) * 0.15;
+          const a = (1 - dist / maxDist) * 0.12;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(74, 222, 128, ${alpha})`;
-          ctx.lineWidth = 0.8;
+          ctx.strokeStyle = nodes[i].type === 'hub' || nodes[j].type === 'hub'
+            ? `rgba(34, 211, 238, ${a * 1.5})`
+            : `rgba(74, 222, 128, ${a})`;
+          ctx.lineWidth = 0.7;
           ctx.stroke();
         }
       }
     }
 
-    // Draw nodes
     for (const n of nodes) {
       const dmx = n.x - mouse.x, dmy = n.y - mouse.y;
       const dm = Math.sqrt(dmx * dmx + dmy * dmy);
-      const glow = dm < 100 ? (1 - dm / 100) * 0.6 : 0;
+      const glow = dm < 120 ? (1 - dm / 120) * 0.5 : 0;
+      const r = n.type === 'hub' ? n.r * 1.8 : n.r;
 
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r + glow * 2, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(74, 222, 128, ${0.4 + glow})`;
+      ctx.arc(n.x, n.y, r + glow * 3, 0, Math.PI * 2);
+      ctx.fillStyle = n.type === 'hub'
+        ? `rgba(34, 211, 238, ${0.5 + glow})`
+        : `rgba(74, 222, 128, ${0.35 + glow})`;
       ctx.fill();
 
-      // Move
-      n.x += n.vx;
-      n.y += n.vy;
-      const bw = W / devicePixelRatio, bh = H / devicePixelRatio;
-      if (n.x < 0 || n.x > bw) n.vx *= -1;
-      if (n.y < 0 || n.y > bh) n.vy *= -1;
-      n.x = Math.max(0, Math.min(bw, n.x));
-      n.y = Math.max(0, Math.min(bh, n.y));
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+      n.x = Math.max(0, Math.min(W, n.x));
+      n.y = Math.max(0, Math.min(H, n.y));
     }
-
     requestAnimationFrame(draw);
   }
 
   canvas.parentElement.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
+    mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top;
   });
   canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
 
-  resize();
-  createNodes();
-  draw();
-  window.addEventListener('resize', () => { resize(); createNodes(); });
+  resize(); init(); draw();
+  window.addEventListener('resize', () => { resize(); init(); });
 })();
 </script>
 </body>
