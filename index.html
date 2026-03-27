@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MeshCue — Open Healthcare Infrastructure</title>
-  <meta name="description" content="Build affordable medical devices. Connect patients to clinics. Manage resources. Open-source infrastructure for the communities that need it most.">
+  <meta name="description" content="Build affordable medical devices. Connect patients to clinics over SMS and WhatsApp. Manage resources across clinics. Open-source infrastructure for the communities that need it most.">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="MeshCue — Open Healthcare Infrastructure">
   <meta property="og:description" content="Build medical devices. Connect patients to clinics. Manage resources. Open-source platform for underserved healthcare.">
   <meta property="og:url" content="https://meshcue.com">
@@ -13,13 +14,29 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="MeshCue — Open Healthcare Infrastructure">
   <meta name="twitter:description" content="Build affordable medical devices. Connect patients to clinics. Manage resources.">
-  <meta name="theme-color" content="#0F172A">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230F172A'/><path d='M16 6L7 11l9 6 9-6-9-5z' fill='%2322d3ee'/><path d='M7 17l9 6 9-6' stroke='%234ade80' stroke-width='2' fill='none'/><path d='M7 11v6' stroke='%234ade80' stroke-width='2'/></svg>">
+  <meta name="twitter:image" content="https://meshcue.com/og-image.png">
+  <meta name="theme-color" content="#0a0f1a">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a0f1a'/><path d='M16 6L7 11l9 6 9-6-9-5z' fill='%2322d3ee'/><path d='M7 17l9 6 9-6' stroke='%234ade80' stroke-width='2' fill='none'/><path d='M7 11v6' stroke='%234ade80' stroke-width='2'/></svg>">
   <link rel="canonical" href="https://meshcue.com">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://github.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MeshCue",
+    "url": "https://meshcue.com",
+    "logo": "https://meshcue.com/og-image.png",
+    "description": "Open-source healthcare infrastructure. Build medical devices, connect patients, manage resources.",
+    "sameAs": ["https://github.com/Meshcue"]
+  }
+  </script>
+
   <style>
     :root {
       --bg: #0a0f1a;
@@ -44,7 +61,6 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -60,15 +76,42 @@
     a { color: inherit; text-decoration: none; }
     .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
+    /* ── Skip Link (a11y) ────────────────────── */
+    .skip-link {
+      position: absolute; top: -100px; left: 16px; z-index: 200;
+      background: var(--accent); color: var(--bg); padding: 12px 24px;
+      border-radius: 8px; font-weight: 700; font-size: 14px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 12px; }
+
+    /* ── Focus States (a11y) ─────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ── Reduced Motion ──────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .terminal-cursor { animation: none !important; opacity: 1; }
+      .hero-badge-dot { animation: none !important; opacity: 1; }
+    }
+
     /* ── Nav ─────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 0;
       background: rgba(10, 15, 26, 0.8);
       backdrop-filter: blur(24px) saturate(1.2);
       -webkit-backdrop-filter: blur(24px) saturate(1.2);
       border-bottom: 1px solid var(--glass-border);
-      transition: all 0.3s ease;
+      transition: background 0.3s ease;
     }
     nav.scrolled { background: rgba(10, 15, 26, 0.95); }
     nav .container {
@@ -90,30 +133,33 @@
     .nav-links { display: flex; gap: 32px; align-items: center; }
     .nav-links a {
       color: var(--text-muted); font-size: 14px; font-weight: 500;
-      transition: color 0.2s; position: relative;
+      transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); }
     .btn-nav {
       background: var(--accent); color: var(--bg) !important;
       padding: 8px 20px; border-radius: 8px;
       font-weight: 700; font-size: 13px; letter-spacing: 0.2px;
-      transition: all 0.2s var(--ease);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
     }
     .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74, 222, 128, 0.3); }
+    .btn-nav:active { transform: translateY(0); }
 
-    /* Mobile menu */
+    /* ── Mobile Menu ─────────────────────────── */
     .menu-toggle {
       display: none; background: none; border: none;
-      color: var(--text); cursor: pointer; padding: 8px;
+      color: var(--text); cursor: pointer;
+      width: 44px; height: 44px;
+      border-radius: 8px;
+      align-items: center; justify-content: center;
     }
-    .menu-toggle svg { width: 24px; height: 24px; }
+    .menu-toggle svg { width: 24px; height: 24px; pointer-events: none; }
+    .menu-toggle .icon-close { display: none; }
+    .menu-toggle.open .icon-menu { display: none; }
+    .menu-toggle.open .icon-close { display: block; }
 
     /* ── Hero ─────────────────────────────────── */
-    .hero {
-      padding: 140px 0 80px;
-      position: relative;
-      overflow: hidden;
-    }
+    .hero { padding: 140px 0 80px; position: relative; overflow: hidden; }
     .hero::before {
       content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
       width: 1200px; height: 800px;
@@ -140,7 +186,6 @@
     h1 {
       font-size: clamp(36px, 5vw, 56px); font-weight: 900;
       line-height: 1.08; margin-bottom: 20px; letter-spacing: -2px;
-      color: var(--text);
     }
     .hero-gradient {
       background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
@@ -152,24 +197,32 @@
       margin-bottom: 36px; max-width: 460px;
     }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ── Buttons ──────────────────────────────── */
     .btn-primary {
       background: var(--accent); color: var(--bg);
       padding: 14px 28px; border-radius: 10px;
       font-family: inherit; font-size: 15px; font-weight: 700;
-      border: none; cursor: pointer; transition: all 0.2s var(--ease);
+      border: none; cursor: pointer;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
       display: inline-flex; align-items: center; gap: 8px;
+      min-height: 48px;
     }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74, 222, 128, 0.25); }
+    .btn-primary:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(74, 222, 128, 0.2); }
     .btn-ghost {
       background: transparent; border: 1px solid var(--glass-border);
       color: var(--text); padding: 14px 28px; border-radius: 10px;
       font-family: inherit; font-size: 15px; font-weight: 600;
-      cursor: pointer; transition: all 0.2s var(--ease);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s var(--ease);
       display: inline-flex; align-items: center; gap: 8px;
+      min-height: 48px;
     }
-    .btn-ghost:hover { border-color: var(--glass-hover); background: var(--glass); }
+    .btn-ghost:hover { border-color: var(--glass-hover); background: var(--glass); transform: translateY(-1px); }
+    .btn-ghost:active { transform: translateY(0); }
 
-    /* Hero visual — terminal mockup */
+    /* ── Terminal Mockup ─────────────────────── */
     .hero-visual { position: relative; z-index: 1; }
     .terminal {
       background: var(--bg-raised); border: 1px solid var(--glass-border);
@@ -181,24 +234,26 @@
       padding: 12px 16px; background: rgba(255,255,255,0.02);
       border-bottom: 1px solid var(--glass-border);
     }
+    .terminal-dots { display: flex; gap: 6px; }
     .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .terminal-dot.red { background: #f87171; }
-    .terminal-dot.yellow { background: #fbbf24; }
-    .terminal-dot.green { background: #4ade80; }
+    .terminal-dot-r { background: #f87171; }
+    .terminal-dot-y { background: #fbbf24; }
+    .terminal-dot-g { background: #4ade80; }
     .terminal-title {
       flex: 1; text-align: center; font-size: 12px;
       color: var(--text-dim); font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
     }
     .terminal-body {
       padding: 20px; font-family: 'JetBrains Mono', monospace;
       font-size: 13px; line-height: 1.8;
     }
-    .terminal-body .prompt { color: var(--accent); }
-    .terminal-body .cmd { color: var(--text); }
-    .terminal-body .comment { color: var(--text-dim); }
-    .terminal-body .output { color: var(--text-muted); }
-    .terminal-body .file { color: var(--accent-cyan); }
-    .terminal-body .success { color: var(--accent); }
+    .t-prompt { color: var(--accent); }
+    .t-cmd { color: var(--text); }
+    .t-comment { color: var(--text-dim); }
+    .t-output { color: var(--text-muted); }
+    .t-file { color: var(--accent-cyan); }
+    .t-ok { color: var(--accent); }
     .terminal-cursor {
       display: inline-block; width: 8px; height: 16px;
       background: var(--accent); margin-left: 2px;
@@ -212,9 +267,7 @@
       background: var(--glass-border); border-radius: var(--radius);
       overflow: hidden; margin: 80px 0;
     }
-    .stat {
-      background: var(--bg); padding: 28px 24px; text-align: center;
-    }
+    .stat { background: var(--bg); padding: 28px 24px; text-align: center; }
     .stat-value {
       font-size: 28px; font-weight: 800; letter-spacing: -1px;
       color: var(--accent);
@@ -242,7 +295,8 @@
     .pillar {
       background: var(--bg-raised); border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg); padding: 32px 28px;
-      transition: all 0.3s var(--ease); position: relative; overflow: hidden;
+      transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
     }
     .pillar::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -263,7 +317,7 @@
     .pillar-connect .pillar-icon { background: rgba(74, 222, 128, 0.1); color: var(--accent); }
     .pillar-ram .pillar-icon { background: rgba(245, 158, 11, 0.1); color: var(--orange); }
     .pillar h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
-    .pillar p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+    .pillar > p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
     .pillar-features { list-style: none; }
     .pillar-features li {
       font-size: 13px; color: var(--text-muted); padding: 5px 0;
@@ -286,12 +340,11 @@
     .pillar-link:hover { gap: 10px; }
 
     /* ── How It Works ─────────────────────────── */
-    .flow {
-      max-width: 720px; margin: 0 auto; position: relative;
-    }
+    .flow { max-width: 720px; margin: 0 auto; position: relative; }
     .flow::before {
       content: ''; position: absolute; left: 22px; top: 36px; bottom: 36px;
-      width: 2px; background: linear-gradient(to bottom, var(--violet), var(--accent), var(--orange), var(--accent-cyan));
+      width: 2px;
+      background: linear-gradient(to bottom, var(--violet), var(--accent), var(--orange), var(--accent-cyan));
       opacity: 0.2; border-radius: 2px;
     }
     .flow-step {
@@ -314,14 +367,13 @@
     .flow-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
     /* ── Mesh Network ─────────────────────────── */
-    .mesh-section { position: relative; }
     .mesh-visual {
       position: relative; height: 380px; margin: 0 auto;
       max-width: 800px; border-radius: var(--radius-lg);
       overflow: hidden; border: 1px solid var(--glass-border);
       background: var(--bg-raised);
     }
-    .mesh-canvas { width: 100%; height: 100%; }
+    .mesh-canvas { width: 100%; height: 100%; display: block; }
     .mesh-overlay {
       position: absolute; inset: 0; display: flex;
       align-items: center; justify-content: center;
@@ -340,7 +392,7 @@
     .impact-card {
       background: var(--bg-raised); border: 1px solid var(--glass-border);
       border-radius: var(--radius); padding: 28px 20px; text-align: center;
-      transition: all 0.3s var(--ease);
+      transition: transform 0.3s var(--ease), border-color 0.3s;
     }
     .impact-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
     .impact-num { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
@@ -368,16 +420,16 @@
     .repo-link {
       background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
       color: var(--text-muted); font-size: 14px; font-weight: 600;
-      padding: 12px 20px; border-radius: 10px; transition: all 0.2s;
+      padding: 12px 20px; border-radius: 10px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
       display: inline-flex; align-items: center; gap: 8px;
+      min-height: 48px;
     }
     .repo-link:hover { background: rgba(255,255,255,0.07); color: var(--text); border-color: rgba(255,255,255,0.12); }
     .repo-link svg { width: 16px; height: 16px; }
 
     /* ── CTA ──────────────────────────────────── */
-    .cta {
-      padding: 100px 0; text-align: center; position: relative;
-    }
+    .cta { padding: 100px 0; text-align: center; position: relative; }
     .cta::before {
       content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 900px; height: 500px;
@@ -391,16 +443,21 @@
     .cta p { color: var(--text-muted); font-size: 16px; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
 
     /* ── Footer ───────────────────────────────── */
-    footer {
-      padding: 48px 0; border-top: 1px solid var(--glass-border);
-    }
+    footer { padding: 48px 0; border-top: 1px solid var(--glass-border); }
     .footer-grid {
       display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
       margin-bottom: 48px;
     }
     .footer-brand p { color: var(--text-dim); font-size: 14px; line-height: 1.7; margin-top: 12px; }
-    .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
-    .footer-col a { display: block; color: var(--text-dim); font-size: 14px; padding: 4px 0; transition: color 0.2s; }
+    .footer-col h4 {
+      font-size: 13px; font-weight: 700; color: var(--text-muted);
+      margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .footer-col a {
+      display: block; color: var(--text-dim); font-size: 14px;
+      padding: 5px 0; transition: color 0.2s;
+      min-height: 32px; display: flex; align-items: center;
+    }
     .footer-col a:hover { color: var(--text); }
     .footer-bottom {
       display: flex; justify-content: space-between; align-items: center;
@@ -411,12 +468,13 @@
     .footer-socials { display: flex; gap: 16px; }
     .footer-socials a {
       color: var(--text-dim); transition: color 0.2s;
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 8px;
     }
     .footer-socials a:hover { color: var(--text); }
-    .footer-socials svg { width: 18px; height: 18px; }
+    .footer-socials svg { width: 20px; height: 20px; }
 
-    /* ── Responsive ───────────────────────────── */
+    /* ── Responsive: Tablet ──────────────────── */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
       .hero-sub { margin-left: auto; margin-right: auto; }
@@ -427,20 +485,40 @@
       .stats { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
+
+    /* ── Responsive: Mobile ──────────────────── */
     @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .nav-links.open {
-        display: flex; flex-direction: column;
+      .nav-links {
+        display: none; flex-direction: column;
         position: absolute; top: 64px; left: 0; right: 0;
         background: rgba(10, 15, 26, 0.97);
         backdrop-filter: blur(24px);
-        padding: 24px; gap: 20px;
+        padding: 16px 24px 24px; gap: 4px;
         border-bottom: 1px solid var(--glass-border);
+        transform: translateY(-8px); opacity: 0;
+        transition: transform 0.25s var(--ease), opacity 0.25s ease;
       }
-      .menu-toggle { display: block; }
+      .nav-links.open { display: flex; transform: translateY(0); opacity: 1; }
+      .nav-links a {
+        padding: 12px 0; font-size: 16px;
+        min-height: 48px; display: flex; align-items: center;
+      }
+      .nav-links .btn-nav {
+        margin-top: 8px; justify-content: center;
+        padding: 14px 20px; min-height: 48px;
+      }
+      .menu-toggle { display: flex; }
       .hero { padding: 120px 0 60px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
       .impact-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .oss-block { padding: 40px 24px; }
+    }
+
+    /* ── Responsive: Landscape Mobile ────────── */
+    @media (max-width: 640px) and (orientation: landscape) {
+      .hero { padding: 100px 0 40px; }
+      .mesh-visual { height: 260px; }
     }
 
     /* ── Animations ───────────────────────────── */
@@ -449,81 +527,90 @@
       transition: opacity 0.5s ease, transform 0.5s var(--ease);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
   </style>
 </head>
 <body>
 
+<!-- Skip Link -->
+<a href="#main" class="skip-link">Skip to main content</a>
+
 <!-- ── Nav ──────────────────────────────────── -->
-<nav id="nav">
+<nav id="nav" role="navigation" aria-label="Main navigation">
   <div class="container">
-    <a href="/" class="logo">
+    <a href="/" class="logo" aria-label="MeshCue home">
       <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
           <path d="M12 3L3 9l9 6 9-6-9-6z"/><path d="M3 15l9 6 9-6"/><path d="M3 9v6"/>
         </svg>
       </div>
       <span>Mesh<span style="font-weight: 900">Cue</span></span>
     </a>
-    <div class="nav-links" id="navLinks">
-      <a href="#pillars">Platform</a>
-      <a href="#how">How It Works</a>
-      <a href="#impact">Impact</a>
-      <a href="https://github.com/Meshcue" target="_blank">GitHub</a>
-      <a href="https://github.com/Meshcue/meshcue-forge" class="btn-nav">Get Started</a>
+    <div class="nav-links" id="navLinks" role="menu">
+      <a href="#pillars" role="menuitem">Platform</a>
+      <a href="#how" role="menuitem">How It Works</a>
+      <a href="#impact" role="menuitem">Impact</a>
+      <a href="https://github.com/Meshcue" target="_blank" rel="noopener noreferrer" role="menuitem">GitHub</a>
+      <a href="https://github.com/Meshcue/meshcue-forge" class="btn-nav" role="menuitem">Get Started</a>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
   </div>
 </nav>
 
+<!-- ── Main Content ─────────────────────────── -->
+<main id="main">
+
 <!-- ── Hero ─────────────────────────────────── -->
-<section class="hero">
+<section class="hero" aria-label="Introduction">
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <div class="hero-badge"><span class="hero-badge-dot"></span> Open-source healthcare infrastructure</div>
+        <div class="hero-badge" aria-label="Status: open-source healthcare infrastructure"><span class="hero-badge-dot" aria-hidden="true"></span> Open-source healthcare infrastructure</div>
         <h1>Build healthcare<br>for <span class="hero-gradient">every community.</span></h1>
         <p class="hero-sub">
-          Affordable medical devices. Patient messaging over SMS and WhatsApp.
-          Resource management for every clinic. All open-source, all free.
+          Design affordable medical devices with AI. Message patients over SMS and WhatsApp
+          where there's no internet. Track medications and equipment across every clinic.
         </p>
         <div class="hero-actions">
           <a href="https://github.com/Meshcue/meshcue-forge" class="btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
             Start Building
           </a>
-          <a href="#how" class="btn-ghost">
-            See How It Works
-          </a>
+          <a href="#how" class="btn-ghost">See How It Works</a>
         </div>
       </div>
-      <div class="hero-visual reveal">
+      <div class="hero-visual reveal" role="img" aria-label="Terminal showing MeshCue Forge generating a pulse oximeter design: circuit, firmware, 3D case, and bill of materials totaling $3.20">
         <div class="terminal">
           <div class="terminal-bar">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
+            <div class="terminal-dots" aria-hidden="true">
+              <span class="terminal-dot terminal-dot-r"></span>
+              <span class="terminal-dot terminal-dot-y"></span>
+              <span class="terminal-dot terminal-dot-g"></span>
+            </div>
             <span class="terminal-title">meshcue-forge</span>
           </div>
-          <div class="terminal-body">
-            <div><span class="prompt">$</span> <span class="cmd">meshcue forge describe</span></div>
-            <div><span class="comment"># "ESP32 pulse oximeter, OLED, battery, &lt;$5"</span></div>
+          <div class="terminal-body" aria-hidden="true">
+            <div><span class="t-prompt">$</span> <span class="t-cmd">meshcue forge describe</span></div>
+            <div><span class="t-comment"># "ESP32 pulse oximeter, OLED, battery, &lt;$5"</span></div>
             <br>
-            <div><span class="output">Generating MHDL spec...</span></div>
-            <div><span class="output">Building artifacts:</span></div>
-            <div>&nbsp;&nbsp;<span class="file">diagram.json</span> <span class="comment">circuit</span></div>
-            <div>&nbsp;&nbsp;<span class="file">main.ino</span> <span class="comment">firmware</span></div>
-            <div>&nbsp;&nbsp;<span class="file">enclosure.scad</span> <span class="comment">3D case</span></div>
-            <div>&nbsp;&nbsp;<span class="file">bom.csv</span> <span class="comment">$3.20 total</span></div>
-            <div>&nbsp;&nbsp;<span class="file">ASSEMBLY.md</span> <span class="comment">build guide</span></div>
+            <div><span class="t-output">Generating MHDL spec...</span></div>
+            <div><span class="t-output">Building artifacts:</span></div>
+            <div>&nbsp;&nbsp;<span class="t-file">diagram.json</span> <span class="t-comment">circuit</span></div>
+            <div>&nbsp;&nbsp;<span class="t-file">main.ino</span> <span class="t-comment">firmware</span></div>
+            <div>&nbsp;&nbsp;<span class="t-file">enclosure.scad</span> <span class="t-comment">3D case</span></div>
+            <div>&nbsp;&nbsp;<span class="t-file">bom.csv</span> <span class="t-comment">$3.20 total</span></div>
+            <div>&nbsp;&nbsp;<span class="t-file">ASSEMBLY.md</span> <span class="t-comment">build guide</span></div>
             <br>
-            <div><span class="success">Done.</span> Ready to print and assemble.<span class="terminal-cursor"></span></div>
+            <div><span class="t-ok">Done.</span> Ready to print and assemble.<span class="terminal-cursor"></span></div>
           </div>
         </div>
       </div>
@@ -532,41 +619,41 @@
 </section>
 
 <!-- ── Stats ────────────────────────────────── -->
-<div class="container">
-  <div class="stats reveal">
-    <div class="stat">
-      <div class="stat-value">28+</div>
+<div class="container" aria-label="Key metrics">
+  <div class="stats reveal" role="list">
+    <div class="stat" role="listitem">
+      <div class="stat-value" data-target="28">0</div>
       <div class="stat-label">MCP Tools</div>
     </div>
-    <div class="stat">
-      <div class="stat-value">4</div>
-      <div class="stat-label">Channels</div>
+    <div class="stat" role="listitem">
+      <div class="stat-value" data-target="4">0</div>
+      <div class="stat-label">Channels (SMS, WhatsApp, USSD, Voice)</div>
     </div>
-    <div class="stat">
+    <div class="stat" role="listitem">
       <div class="stat-value">&lt;$5</div>
-      <div class="stat-label">Per Device</div>
+      <div class="stat-label">Per Device BOM</div>
     </div>
-    <div class="stat">
+    <div class="stat" role="listitem">
       <div class="stat-value">MIT</div>
-      <div class="stat-label">Licensed</div>
+      <div class="stat-label">Open Source License</div>
     </div>
   </div>
 </div>
 
 <!-- ── Three Pillars ─────────────────────────── -->
-<section id="pillars">
+<section id="pillars" aria-label="Platform pillars">
   <div class="container">
-    <div class="section-eyebrow">The Platform</div>
+    <p class="section-eyebrow">The Platform</p>
     <h2 class="section-title">Three pillars. One mission.</h2>
     <p class="section-sub">Every clinic needs devices, communication, and resources. MeshCue connects all three into a single open platform.</p>
 
     <div class="pillars">
-      <div class="pillar pillar-forge reveal">
-        <div class="pillar-icon">
+      <article class="pillar pillar-forge reveal">
+        <div class="pillar-icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
         </div>
         <h3>Forge</h3>
-        <p>AI hardware compiler. Describe a medical device in plain English, get circuits, firmware, 3D-printable enclosures, and docs.</p>
+        <p>AI hardware compiler. Describe a medical device in plain English, get circuits, firmware, 3D-printable enclosures, and documentation.</p>
         <ul class="pillar-features">
           <li>ESP32, RP2040, STM32 support</li>
           <li>KiCad PCB, Arduino firmware</li>
@@ -574,11 +661,11 @@
           <li>Medical docs (IEC 62304, FMEA)</li>
           <li>Pulse oximeters, thermometers, BP monitors</li>
         </ul>
-        <a href="https://github.com/Meshcue/meshcue-forge" class="pillar-link">View on GitHub <span>&rarr;</span></a>
-      </div>
+        <a href="https://github.com/Meshcue/meshcue-forge" class="pillar-link" rel="noopener noreferrer" target="_blank">View on GitHub <span aria-hidden="true">&rarr;</span></a>
+      </article>
 
-      <div class="pillar pillar-connect reveal reveal-delay-1">
-        <div class="pillar-icon">
+      <article class="pillar pillar-connect reveal reveal-d1">
+        <div class="pillar-icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"/></svg>
         </div>
         <h3>Connect</h3>
@@ -590,11 +677,11 @@
           <li>Consent management &amp; HIPAA logging</li>
           <li>Exponential backoff with channel fallback</li>
         </ul>
-        <a href="https://github.com/Meshcue" class="pillar-link">Coming soon <span>&rarr;</span></a>
-      </div>
+        <span class="pillar-link" aria-label="Connect module coming soon">Coming soon <span aria-hidden="true">&rarr;</span></span>
+      </article>
 
-      <div class="pillar pillar-ram reveal reveal-delay-2">
-        <div class="pillar-icon">
+      <article class="pillar pillar-ram reveal reveal-d2">
+        <div class="pillar-icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
         </div>
         <h3>RAM</h3>
@@ -606,45 +693,45 @@
           <li>Forge-built devices auto-registered</li>
           <li>Per-clinic dashboard &amp; analytics</li>
         </ul>
-        <a href="https://github.com/Meshcue" class="pillar-link">Coming soon <span>&rarr;</span></a>
-      </div>
+        <span class="pillar-link" aria-label="RAM module coming soon">Coming soon <span aria-hidden="true">&rarr;</span></span>
+      </article>
     </div>
   </div>
 </section>
 
 <!-- ── How It Works ───────────────────────────── -->
-<section id="how">
+<section id="how" aria-label="How it works">
   <div class="container">
-    <div class="section-eyebrow" style="color: var(--violet);">How It Works</div>
+    <p class="section-eyebrow" style="color: var(--violet);">How It Works</p>
     <h2 class="section-title">From description to deployed clinic</h2>
     <p class="section-sub">One platform handles the entire lifecycle: design, build, connect, manage.</p>
 
-    <div class="flow reveal">
-      <div class="flow-step">
-        <div class="flow-num">1</div>
+    <div class="flow reveal" role="list">
+      <div class="flow-step" role="listitem">
+        <div class="flow-num" aria-hidden="true">1</div>
         <div class="flow-content">
-          <h4>Describe your device</h4>
+          <h3>Describe your device</h3>
           <p>"ESP32 pulse oximeter with OLED display for rural clinics, battery-powered, under $5 BOM"</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">2</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-num" aria-hidden="true">2</div>
         <div class="flow-content">
-          <h4>Forge builds everything</h4>
+          <h3>Forge builds everything</h3>
           <p>Circuit diagram, Arduino firmware with sensor calibration, 3D-printable enclosure, BOM, and medical documentation &mdash; in seconds.</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">3</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-num" aria-hidden="true">3</div>
         <div class="flow-content">
-          <h4>Connect links patients</h4>
+          <h3>Connect links patients</h3>
           <p>Device alerts auto-triage to the right channel. Critical SpO2? SMS the nurse. Routine follow-up? WhatsApp in their language.</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">4</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-num" aria-hidden="true">4</div>
         <div class="flow-content">
-          <h4>RAM tracks it all</h4>
+          <h3>RAM tracks it all</h3>
           <p>Every device is auto-registered. Stock levels, maintenance schedules, supply orders &mdash; one dashboard per clinic.</p>
         </div>
       </div>
@@ -653,13 +740,13 @@
 </section>
 
 <!-- ── Mesh Network ──────────────────────────── -->
-<section class="mesh-section" id="mesh">
+<section id="mesh" aria-label="Mesh network visualization">
   <div class="container">
-    <div class="section-eyebrow" style="color: var(--accent-cyan);">The Mesh</div>
+    <p class="section-eyebrow" style="color: var(--accent-cyan);">The Mesh</p>
     <h2 class="section-title">Peer-to-peer healthcare network</h2>
     <p class="section-sub">Clinics form a mesh. Share compute, offload builds, relay messages when connectivity drops.</p>
     <div class="mesh-visual reveal">
-      <canvas class="mesh-canvas" id="meshCanvas"></canvas>
+      <canvas class="mesh-canvas" id="meshCanvas" role="img" aria-label="Animated visualization of interconnected mesh network nodes representing clinics"></canvas>
       <div class="mesh-overlay">
         <div class="mesh-label">
           <h3>MeshCue Network</h3>
@@ -671,30 +758,30 @@
 </section>
 
 <!-- ── Impact ────────────────────────────────── -->
-<section id="impact">
+<section id="impact" aria-label="Impact metrics">
   <div class="container">
-    <div class="section-eyebrow">Impact</div>
+    <p class="section-eyebrow">Impact</p>
     <h2 class="section-title">Built for where it matters most</h2>
     <p class="section-sub">Healthcare infrastructure shouldn't require a hospital IT department.</p>
-    <div class="impact-grid reveal">
-      <div class="impact-card">
+    <div class="impact-grid reveal" role="list">
+      <div class="impact-card" role="listitem">
         <div class="impact-num">&lt;$5</div>
-        <h4>Device Cost</h4>
+        <h3>Device Cost</h3>
         <p>Pulse oximeter, thermometer, or BP monitor &mdash; locally sourced, locally assembled.</p>
       </div>
-      <div class="impact-card">
+      <div class="impact-card" role="listitem">
         <div class="impact-num">SMS</div>
-        <h4>Offline-First</h4>
+        <h3>Offline-First</h3>
         <p>Works on 2G. No smartphone needed. USSD menus for feature phones.</p>
       </div>
-      <div class="impact-card">
+      <div class="impact-card" role="listitem">
         <div class="impact-num">9</div>
-        <h4>Languages</h4>
+        <h3>Languages</h3>
         <p>English, French, Swahili, Arabic, Portuguese, Spanish, Bengali, Hindi, Chinese.</p>
       </div>
-      <div class="impact-card">
+      <div class="impact-card" role="listitem">
         <div class="impact-num">OSS</div>
-        <h4>Open Source</h4>
+        <h3>Open Source</h3>
         <p>MIT licensed. Fork it, deploy it, improve it. No vendor lock-in.</p>
       </div>
     </div>
@@ -702,18 +789,18 @@
 </section>
 
 <!-- ── Open Source ─────────────────────────────── -->
-<section>
+<section aria-label="Open source">
   <div class="container">
     <div class="oss-block reveal">
-      <h3>Built in the open</h3>
+      <h2>Built in the open</h2>
       <p>MeshCue is free and open-source software. Every line of code, every device spec, every protocol. Fork it, audit it, improve it.</p>
       <div class="repo-links">
-        <a href="https://github.com/Meshcue/meshcue-forge" target="_blank" class="repo-link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <a href="https://github.com/Meshcue/meshcue-forge" target="_blank" rel="noopener noreferrer" class="repo-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           Meshcue/meshcue-forge
         </a>
-        <a href="https://github.com/Meshcue" target="_blank" class="repo-link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <a href="https://github.com/Meshcue" target="_blank" rel="noopener noreferrer" class="repo-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           All Repositories
         </a>
       </div>
@@ -722,23 +809,25 @@
 </section>
 
 <!-- ── CTA ────────────────────────────────────── -->
-<section class="cta">
+<section class="cta" aria-label="Call to action">
   <div class="container">
     <h2>Start building for<br><span class="hero-gradient">your community</span></h2>
-    <p>Describe what your clinic needs and get buildable device specs in seconds. No signup required.</p>
+    <p>Describe what your clinic needs and get buildable device specs in seconds. Open-source, no signup required.</p>
     <div class="hero-actions" style="justify-content: center;">
       <a href="https://github.com/Meshcue/meshcue-forge" class="btn-primary">Get Started</a>
-      <a href="https://github.com/Meshcue/meshcue-forge" target="_blank" class="btn-ghost">Read the Docs</a>
+      <a href="https://github.com/Meshcue/meshcue-forge#readme" target="_blank" rel="noopener noreferrer" class="btn-ghost">Read the Docs</a>
     </div>
   </div>
 </section>
 
+</main>
+
 <!-- ── Footer ────────────────────────────────── -->
-<footer>
+<footer role="contentinfo">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo">
+        <div class="logo" aria-hidden="true">
           <div class="logo-mark" style="width: 28px; height: 28px;">
             <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="width: 14px; height: 14px;">
               <path d="M12 3L3 9l9 6 9-6-9-6z"/><path d="M3 15l9 6 9-6"/><path d="M3 9v6"/>
@@ -748,30 +837,30 @@
         </div>
         <p>Open healthcare infrastructure for the communities that need it most.</p>
       </div>
-      <div class="footer-col">
+      <nav class="footer-col" aria-label="Platform links">
         <h4>Platform</h4>
-        <a href="https://github.com/Meshcue/meshcue-forge">Forge</a>
+        <a href="https://github.com/Meshcue/meshcue-forge" target="_blank" rel="noopener noreferrer">Forge</a>
         <a href="#pillars">Connect</a>
         <a href="#pillars">RAM</a>
-      </div>
-      <div class="footer-col">
+      </nav>
+      <nav class="footer-col" aria-label="Resources">
         <h4>Resources</h4>
-        <a href="https://github.com/Meshcue/meshcue-forge">Documentation</a>
-        <a href="https://github.com/Meshcue">GitHub</a>
-        <a href="https://github.com/Meshcue/meshcue-forge/issues">Issues</a>
-      </div>
-      <div class="footer-col">
+        <a href="https://github.com/Meshcue/meshcue-forge#readme" target="_blank" rel="noopener noreferrer">Documentation</a>
+        <a href="https://github.com/Meshcue" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/Meshcue/meshcue-forge/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+      </nav>
+      <nav class="footer-col" aria-label="Community">
         <h4>Community</h4>
-        <a href="https://github.com/Meshcue/meshcue-forge/discussions">Discussions</a>
-        <a href="https://github.com/Meshcue/meshcue-forge#contributing">Contributing</a>
-        <a href="https://github.com/Meshcue/meshcue-forge/blob/main/LICENSE">MIT License</a>
-      </div>
+        <a href="https://github.com/Meshcue/meshcue-forge/discussions" target="_blank" rel="noopener noreferrer">Discussions</a>
+        <a href="https://github.com/Meshcue/meshcue-forge#contributing" target="_blank" rel="noopener noreferrer">Contributing</a>
+        <a href="https://github.com/Meshcue/meshcue-forge/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+      </nav>
     </div>
     <div class="footer-bottom">
       <p>MeshCue &mdash; Open healthcare infrastructure.</p>
       <div class="footer-socials">
-        <a href="https://github.com/Meshcue" target="_blank" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <a href="https://github.com/Meshcue" target="_blank" rel="noopener noreferrer" aria-label="MeshCue on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
       </div>
     </div>
@@ -780,22 +869,39 @@
 
 <!-- ── Scripts ────────────────────────────────── -->
 <script>
+// Respect reduced motion
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Nav scroll effect
-const nav = document.getElementById('nav');
+const navEl = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
+  navEl.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// Mobile menu toggle with X icon swap
+const toggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+
+toggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  toggle.classList.toggle('open', isOpen);
+  toggle.setAttribute('aria-expanded', isOpen);
 });
 
-// Mobile menu toggle
-document.getElementById('menuToggle').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-// Close mobile menu on link click
-document.querySelectorAll('#navLinks a').forEach(a => {
+// Close mobile menu on link click or outside click
+navLinks.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => {
-    document.getElementById('navLinks').classList.remove('open');
+    navLinks.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
   });
+});
+document.addEventListener('click', (e) => {
+  if (!navLinks.contains(e.target) && !toggle.contains(e.target)) {
+    navLinks.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
 });
 
 // Intersection Observer for reveal animations
@@ -804,87 +910,142 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// Counter animation for stats
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.target);
+    if (!target || el.dataset.counted) return;
+    el.dataset.counted = 'true';
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + (target === 28 ? '+' : '');
+      if (progress < 1 && !prefersReducedMotion) requestAnimationFrame(tick);
+      else el.textContent = target + (target === 28 ? '+' : '');
+    }
+    if (prefersReducedMotion) {
+      el.textContent = target + (target === 28 ? '+' : '');
+    } else {
+      requestAnimationFrame(tick);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-value[data-target]').forEach(el => counterObserver.observe(el));
+
 // Mesh network canvas
 (function() {
   const canvas = document.getElementById('meshCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, nodes = [], mouse = { x: -1000, y: -1000 };
+  let canvasWidth, canvasHeight, nodes = [], mouse = { x: -1000, y: -1000 };
+  let animFrameId;
   const dpr = window.devicePixelRatio || 1;
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
-    W = rect.width; H = rect.height;
-    canvas.width = W * dpr; canvas.height = H * dpr;
-    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    canvasWidth = rect.width;
+    canvasHeight = rect.height;
+    canvas.width = canvasWidth * dpr;
+    canvas.height = canvasHeight * dpr;
+    canvas.style.width = canvasWidth + 'px';
+    canvas.style.height = canvasHeight + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function init() {
+  function initNodes() {
     nodes = [];
-    const count = Math.min(Math.floor(W / 16), 60);
+    const count = Math.min(Math.floor(canvasWidth / 16), 60);
     for (let i = 0; i < count; i++) {
       nodes.push({
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+        x: Math.random() * canvasWidth,
+        y: Math.random() * canvasHeight,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
         r: Math.random() * 1.5 + 1.5,
-        type: Math.random() < 0.15 ? 'hub' : 'node',
+        isHub: Math.random() < 0.15,
       });
     }
   }
 
   function draw() {
-    ctx.clearRect(0, 0, W, H);
-    const maxDist = 110;
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    const connectionDist = 110;
 
+    // Draw connections
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < maxDist) {
-          const a = (1 - dist / maxDist) * 0.12;
+        if (dist < connectionDist) {
+          const alpha = (1 - dist / connectionDist) * 0.12;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = nodes[i].type === 'hub' || nodes[j].type === 'hub'
-            ? `rgba(34, 211, 238, ${a * 1.5})`
-            : `rgba(74, 222, 128, ${a})`;
+          ctx.strokeStyle = (nodes[i].isHub || nodes[j].isHub)
+            ? 'rgba(34, 211, 238, ' + (alpha * 1.5) + ')'
+            : 'rgba(74, 222, 128, ' + alpha + ')';
           ctx.lineWidth = 0.7;
           ctx.stroke();
         }
       }
     }
 
-    for (const n of nodes) {
-      const dmx = n.x - mouse.x, dmy = n.y - mouse.y;
-      const dm = Math.sqrt(dmx * dmx + dmy * dmy);
-      const glow = dm < 120 ? (1 - dm / 120) * 0.5 : 0;
-      const r = n.type === 'hub' ? n.r * 1.8 : n.r;
+    // Draw nodes and update positions
+    for (const node of nodes) {
+      const dmx = node.x - mouse.x;
+      const dmy = node.y - mouse.y;
+      const mouseDist = Math.sqrt(dmx * dmx + dmy * dmy);
+      const glow = mouseDist < 120 ? (1 - mouseDist / 120) * 0.5 : 0;
+      const radius = node.isHub ? node.r * 1.8 : node.r;
 
       ctx.beginPath();
-      ctx.arc(n.x, n.y, r + glow * 3, 0, Math.PI * 2);
-      ctx.fillStyle = n.type === 'hub'
-        ? `rgba(34, 211, 238, ${0.5 + glow})`
-        : `rgba(74, 222, 128, ${0.35 + glow})`;
+      ctx.arc(node.x, node.y, radius + glow * 3, 0, Math.PI * 2);
+      ctx.fillStyle = node.isHub
+        ? 'rgba(34, 211, 238, ' + (0.5 + glow) + ')'
+        : 'rgba(74, 222, 128, ' + (0.35 + glow) + ')';
       ctx.fill();
 
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
-      n.x = Math.max(0, Math.min(W, n.x));
-      n.y = Math.max(0, Math.min(H, n.y));
+      node.x += node.vx;
+      node.y += node.vy;
+      if (node.x < 0 || node.x > canvasWidth) node.vx *= -1;
+      if (node.y < 0 || node.y > canvasHeight) node.vy *= -1;
+      node.x = Math.max(0, Math.min(canvasWidth, node.x));
+      node.y = Math.max(0, Math.min(canvasHeight, node.y));
     }
-    requestAnimationFrame(draw);
+
+    animFrameId = requestAnimationFrame(draw);
   }
 
-  canvas.parentElement.addEventListener('mousemove', e => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top;
-  });
-  canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+  // Pause canvas when not visible
+  const canvasObserver = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      if (!animFrameId) animFrameId = requestAnimationFrame(draw);
+    } else {
+      cancelAnimationFrame(animFrameId);
+      animFrameId = null;
+    }
+  }, { threshold: 0.05 });
 
-  resize(); init(); draw();
-  window.addEventListener('resize', () => { resize(); init(); });
+  canvas.parentElement.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  canvas.parentElement.addEventListener('mouseleave', () => {
+    mouse.x = -1000; mouse.y = -1000;
+  });
+
+  resize();
+  initNodes();
+  canvasObserver.observe(canvas.parentElement);
+
+  window.addEventListener('resize', () => { resize(); initNodes(); });
 })();
 </script>
 </body>
