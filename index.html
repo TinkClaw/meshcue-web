@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeshCue — Open Healthcare Infrastructure</title>
+  <meta name="description" content="Build medical devices. Connect patients to clinics. Manage resources. Open infrastructure for the communities that need it most.">
+  <meta property="og:title" content="MeshCue — Open Healthcare Infrastructure">
+  <meta property="og:description" content="Build medical devices. Connect patients to clinics. Manage resources. Open-source platform for underserved healthcare.">
+  <meta property="og:url" content="https://meshcue.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="manifest.json">
+  <link rel="canonical" href="https://meshcue.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A;
+      --bg-deep: #0a1021;
+      --surface: rgba(255,255,255,0.04);
+      --glass: rgba(0,0,0,0.50);
+      --glass-border: rgba(255,255,255,0.08);
+      --glass-hover: rgba(255,255,255,0.15);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --violet: #8B5CF6;
+      --fuchsia: #D946EF;
+      --orange: #F59E0B;
+      --cyan: #22d3ee;
+      --green: #4ade80;
+      --red: #f87171;
+      --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Outfit', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    ::selection { background: rgba(139,92,246,0.3); }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ──────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 0;
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo {
+      font-size: 20px; font-weight: 700; color: var(--text);
+      text-decoration: none; display: flex; align-items: center; gap: 10px;
+    }
+    .logo-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .logo-icon svg { width: 18px; height: 18px; }
+    .logo-icon::after {
+      content: ''; position: absolute; inset: -2px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      z-index: -1; opacity: 0.3; filter: blur(6px);
+    }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .btn-nav {
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: var(--bg) !important; padding: 8px 22px; border-radius: 100px;
+      font-weight: 700; font-size: 14px;
+      box-shadow: 0 4px 20px rgba(74,222,128,0.2);
+      transition: all 0.3s var(--spring);
+    }
+    .btn-nav:hover { transform: scale(1.04); box-shadow: 0 6px 28px rgba(74,222,128,0.3); }
+
+    /* ── Hero ─────────────────────────────── */
+    .hero {
+      padding: 160px 0 80px; text-align: center; position: relative;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      width: 1000px; height: 700px;
+      background: radial-gradient(ellipse, rgba(74,222,128,0.08) 0%, rgba(34,211,238,0.04) 30%, rgba(139,92,246,0.03) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--glass); backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); color: var(--text-muted);
+      font-size: 13px; font-weight: 600; padding: 8px 18px;
+      border-radius: 100px; margin-bottom: 28px;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    h1 {
+      font-size: clamp(40px, 7vw, 72px); font-weight: 900;
+      line-height: 1.05; margin-bottom: 24px; letter-spacing: -2.5px;
+    }
+    h1 .gr {
+      background: linear-gradient(135deg, var(--green), var(--cyan), var(--violet));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: 19px; color: var(--text-muted); max-width: 580px;
+      margin: 0 auto 48px; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: var(--bg); padding: 16px 36px; border-radius: 100px;
+      font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700;
+      border: none; cursor: pointer; transition: all 0.3s var(--spring);
+      box-shadow: 0 8px 32px rgba(74,222,128,0.2);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: scale(1.04); box-shadow: 0 12px 40px rgba(74,222,128,0.3); }
+    .btn-secondary {
+      background: var(--glass); backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); color: var(--text);
+      padding: 16px 36px; border-radius: 100px;
+      font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600;
+      cursor: pointer; transition: all 0.3s var(--spring);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { border-color: var(--glass-hover); transform: translateY(-2px); }
+
+    /* ── Stats Bar ────────────────────────── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+      padding: 0 0 80px;
+    }
+    .stat { text-align: center; }
+    .stat-value {
+      font-size: 32px; font-weight: 800; letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-top: 2px; }
+
+    /* ── Section Common ──────────────────── */
+    section { padding: 80px 0; }
+    .section-label {
+      font-size: 13px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; text-align: center; margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px,4vw,44px); font-weight: 800;
+      text-align: center; margin-bottom: 12px; letter-spacing: -1px;
+    }
+    .section-sub {
+      text-align: center; color: var(--text-muted); font-size: 16px;
+      max-width: 520px; margin: 0 auto 48px; line-height: 1.7;
+    }
+
+    /* ── Pillars ──────────────────────────── */
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .pillar-card {
+      background: var(--glass); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 24px;
+      padding: 36px 28px; transition: all 0.4s var(--spring);
+      position: relative; overflow: hidden;
+    }
+    .pillar-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 24px 24px 0 0;
+    }
+    .pillar-card:hover { transform: translateY(-6px); }
+    .pillar-forge::before { background: linear-gradient(90deg, var(--violet), var(--fuchsia)); }
+    .pillar-forge:hover { border-color: rgba(139,92,246,0.3); }
+    .pillar-connect::before { background: linear-gradient(90deg, var(--green), var(--cyan)); }
+    .pillar-connect:hover { border-color: rgba(74,222,128,0.3); }
+    .pillar-ram::before { background: linear-gradient(90deg, var(--orange), var(--red)); }
+    .pillar-ram:hover { border-color: rgba(245,158,11,0.3); }
+    .pillar-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 20px;
+    }
+    .pillar-forge .pillar-icon { background: rgba(139,92,246,0.12); }
+    .pillar-connect .pillar-icon { background: rgba(74,222,128,0.12); }
+    .pillar-ram .pillar-icon { background: rgba(245,158,11,0.12); }
+    .pillar-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .pillar-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+    .pillar-features { list-style: none; padding: 0; }
+    .pillar-features li {
+      font-size: 14px; color: var(--text-muted); padding: 6px 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pillar-features li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+    }
+    .pillar-forge .pillar-features li::before { background: var(--violet); }
+    .pillar-connect .pillar-features li::before { background: var(--green); }
+    .pillar-ram .pillar-features li::before { background: var(--orange); }
+    .pillar-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 600; margin-top: 16px; transition: gap 0.2s;
+    }
+    .pillar-forge .pillar-link { color: var(--violet); }
+    .pillar-connect .pillar-link { color: var(--green); }
+    .pillar-ram .pillar-link { color: var(--orange); }
+    .pillar-link:hover { gap: 10px; }
+
+    /* ── How It Works ─────────────────────── */
+    .flow-visual {
+      max-width: 800px; margin: 0 auto;
+      background: var(--glass); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 24px;
+      padding: 40px; position: relative;
+    }
+    .flow-step {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 16px 0; position: relative;
+    }
+    .flow-step + .flow-step { border-top: 1px solid rgba(255,255,255,0.04); }
+    .flow-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; flex-shrink: 0;
+    }
+    .flow-step:nth-child(1) .flow-num { background: rgba(139,92,246,0.15); color: var(--violet); }
+    .flow-step:nth-child(2) .flow-num { background: rgba(74,222,128,0.15); color: var(--green); }
+    .flow-step:nth-child(3) .flow-num { background: rgba(245,158,11,0.15); color: var(--orange); }
+    .flow-step:nth-child(4) .flow-num { background: rgba(34,211,238,0.15); color: var(--cyan); }
+    .flow-content h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .flow-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── Impact Section ───────────────────── */
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+    .impact-card {
+      background: var(--glass); backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); border-radius: 20px;
+      padding: 28px 24px; text-align: center; transition: all 0.3s var(--spring);
+    }
+    .impact-card:hover { border-color: rgba(74,222,128,0.2); transform: translateY(-3px); }
+    .impact-num {
+      font-size: 28px; font-weight: 800; margin-bottom: 4px;
+    }
+    .impact-card:nth-child(1) .impact-num { color: var(--green); }
+    .impact-card:nth-child(2) .impact-num { color: var(--cyan); }
+    .impact-card:nth-child(3) .impact-num { color: var(--violet); }
+    .impact-card:nth-child(4) .impact-num { color: var(--orange); }
+    .impact-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .impact-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+    /* ── Mesh Network Visual ──────────────── */
+    .mesh-visual {
+      position: relative; height: 360px; margin: 0 auto;
+      max-width: 800px; overflow: hidden;
+    }
+    .mesh-canvas { width: 100%; height: 100%; }
+    .mesh-overlay {
+      position: absolute; inset: 0; display: flex;
+      align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .mesh-center-label {
+      background: var(--glass); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 20px;
+      padding: 20px 32px; text-align: center; pointer-events: auto;
+    }
+    .mesh-center-label h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .mesh-center-label p { font-size: 13px; color: var(--text-dim); }
+
+    /* ── Open Source ──────────────────────── */
+    .open-source-block {
+      background: var(--glass); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 24px;
+      padding: 48px; text-align: center; max-width: 720px; margin: 0 auto;
+    }
+    .open-source-block h3 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .open-source-block p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .repo-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .repo-link {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+      color: var(--text-muted); font-size: 14px; font-weight: 600;
+      padding: 12px 24px; border-radius: 14px; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .repo-link:hover { background: rgba(255,255,255,0.08); border-color: var(--glass-hover); color: var(--text); }
+    .repo-link svg { width: 16px; height: 16px; }
+
+    /* ── CTA ──────────────────────────────── */
+    .cta-section {
+      padding: 100px 0; text-align: center; position: relative;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse, rgba(74,222,128,0.06) 0%, rgba(34,211,238,0.03) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+      margin-bottom: 16px; letter-spacing: -1px;
+    }
+    .cta-section p { color: var(--text-muted); font-size: 16px; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    /* ── Footer ───────────────────────────── */
+    footer {
+      padding: 40px 0; border-top: 1px solid var(--glass-border);
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-left { font-size: 14px; color: var(--text-dim); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--text-dim); font-size: 14px; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-muted); }
+
+    /* ── Responsive ───────────────────────── */
+    @media (max-width: 900px) {
+      .pillars-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .nav-links a:not(.btn-nav) { display: none; }
+      .stats-bar { gap: 24px; }
+      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 120px 0 60px; }
+    }
+    @media (max-width: 480px) {
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Animations ───────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s var(--spring);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ──────────────────────────────── -->
+<nav>
+  <div class="container">
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+          <path d="M12 3L3 9l9 6 9-6-9-6z"/><path d="M3 15l9 6 9-6"/><path d="M3 9v6"/>
+        </svg>
+      </div>
+      <span>Mesh<span style="font-weight: 800">Cue</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#pillars">Platform</a>
+      <a href="#how">How It Works</a>
+      <a href="#impact">Impact</a>
+      <a href="https://github.com/TinkClaw" target="_blank">GitHub</a>
+      <a href="https://forge.meshcue.com" class="btn-nav">Open Forge</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="badge"><span class="badge-dot"></span> Open-source healthcare infrastructure</div>
+    <h1>Healthcare for<br><span class="gr">every community.</span></h1>
+    <p class="hero-sub">
+      Build affordable medical devices. Connect patients to clinics over SMS and WhatsApp.
+      Manage resources from medications to equipment. All open-source.
+    </p>
+    <div class="hero-actions">
+      <a href="https://forge.meshcue.com" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Build a Device
+      </a>
+      <a href="https://github.com/TinkClaw/meshcue-forge" target="_blank" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats ────────────────────────────── -->
+<div class="stats-bar container fade-up">
+  <div class="stat">
+    <div class="stat-value">28+</div>
+    <div class="stat-label">MCP Tools</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">4</div>
+    <div class="stat-label">Channels (SMS, WhatsApp, USSD, Voice)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">&lt;$5</div>
+    <div class="stat-label">Per device BOM cost</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">100%</div>
+    <div class="stat-label">Open Source</div>
+  </div>
+</div>
+
+<!-- ── Three Pillars ─────────────────────── -->
+<section id="pillars">
+  <div class="container">
+    <div class="section-label" style="background: linear-gradient(135deg, var(--green), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">The Platform</div>
+    <h2 class="section-title">Three pillars. One mission.</h2>
+    <p class="section-sub">Every clinic needs devices, communication, and resources. MeshCue connects all three into a single open platform.</p>
+
+    <div class="pillars-grid">
+      <!-- Forge -->
+      <div class="pillar-card pillar-forge fade-up">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <h3>Forge</h3>
+        <p>AI hardware compiler. Describe a medical device in plain English, get circuits, firmware, 3D-printable enclosures, and docs.</p>
+        <ul class="pillar-features">
+          <li>ESP32, RP2040, STM32 support</li>
+          <li>KiCad PCB, Arduino firmware</li>
+          <li>OpenSCAD 3D enclosures</li>
+          <li>Medical device documentation (IEC 62304, FMEA)</li>
+          <li>Pulse oximeters, thermometers, BP monitors</li>
+        </ul>
+        <a href="https://forge.meshcue.com" class="pillar-link">Open Forge <span>&rarr;</span></a>
+      </div>
+
+      <!-- Connect -->
+      <div class="pillar-card pillar-connect fade-up">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"/></svg>
+        </div>
+        <h3>Connect</h3>
+        <p>Patient messaging for clinics without internet. SMS, WhatsApp, USSD, and voice calls with auto-triage and fallback chains.</p>
+        <ul class="pillar-features">
+          <li>Africa's Talking, Twilio, Meta Cloud API</li>
+          <li>Auto-triage: vitals &rarr; priority &rarr; routing</li>
+          <li>9 languages (EN, FR, SW, AR, PT...)</li>
+          <li>Consent management & HIPAA-aware logging</li>
+          <li>Exponential backoff with channel fallback</li>
+        </ul>
+        <a href="https://connect.meshcue.com" class="pillar-link">Explore Connect <span>&rarr;</span></a>
+      </div>
+
+      <!-- RAM -->
+      <div class="pillar-card pillar-ram fade-up">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
+        </div>
+        <h3>RAM</h3>
+        <p>Resource &amp; Asset Management. Track devices, medications, supply orders, and maintenance across every clinic.</p>
+        <ul class="pillar-features">
+          <li>Asset lifecycle tracking (register &rarr; maintain &rarr; retire)</li>
+          <li>Low-stock &amp; expiry alerts</li>
+          <li>Supply chain ordering &amp; fulfillment</li>
+          <li>Forge-built devices auto-registered</li>
+          <li>Per-clinic dashboard &amp; analytics</li>
+        </ul>
+        <a href="#" class="pillar-link">Coming soon <span>&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ───────────────────────── -->
+<section id="how">
+  <div class="container">
+    <div class="section-label" style="background: linear-gradient(135deg, var(--violet), var(--fuchsia)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">How It Works</div>
+    <h2 class="section-title">From description to deployed clinic</h2>
+    <p class="section-sub">One platform handles the entire lifecycle: design, build, connect, manage.</p>
+
+    <div class="flow-visual fade-up">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h4>Describe your device</h4>
+          <p>"ESP32 pulse oximeter with OLED display for rural clinics, battery-powered, under $5 BOM"</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h4>Forge builds everything</h4>
+          <p>Circuit diagram, Arduino firmware with real sensor calibration, 3D-printable enclosure, BOM, medical documentation &mdash; in seconds.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h4>Connect links patients</h4>
+          <p>Device alerts auto-triage to the right channel. Critical SpO2 reading? SMS the nurse immediately. Routine follow-up? WhatsApp in their language.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <h4>RAM tracks it all</h4>
+          <p>Every device is auto-registered as an asset. Stock levels, maintenance schedules, supply orders &mdash; one dashboard per clinic.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Mesh Network Visual ────────────────── -->
+<section id="mesh">
+  <div class="container">
+    <div class="section-label" style="background: linear-gradient(135deg, var(--cyan), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">The Mesh</div>
+    <h2 class="section-title">Peer-to-peer healthcare network</h2>
+    <p class="section-sub">Clinics form a mesh. Share compute, offload builds, relay messages when connectivity drops.</p>
+    <div class="mesh-visual fade-up">
+      <canvas class="mesh-canvas" id="meshCanvas"></canvas>
+      <div class="mesh-overlay">
+        <div class="mesh-center-label">
+          <h3>MeshCue Network</h3>
+          <p>Nodes discover each other. Builds offload. Messages relay.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Impact ──────────────────────────────── -->
+<section id="impact">
+  <div class="container">
+    <div class="section-label" style="background: linear-gradient(135deg, var(--green), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Impact</div>
+    <h2 class="section-title">Built for where it matters most</h2>
+    <p class="section-sub">Healthcare infrastructure shouldn't require a hospital IT department.</p>
+    <div class="impact-grid fade-up">
+      <div class="impact-card">
+        <div class="impact-num">&lt;$5</div>
+        <h4>Device Cost</h4>
+        <p>Pulse oximeter, thermometer, or BP monitor &mdash; locally sourced, locally assembled.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">SMS</div>
+        <h4>Offline-First</h4>
+        <p>Works on 2G networks. No smartphone required. USSD menus for feature phones.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">9</div>
+        <h4>Languages</h4>
+        <p>English, French, Swahili, Arabic, Portuguese, Spanish, Bengali, Hindi, Chinese.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">OSS</div>
+        <h4>Open Source</h4>
+        <p>MIT licensed. Fork it, deploy it, improve it. No vendor lock-in, no licensing fees.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Open Source ─────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="open-source-block fade-up">
+      <h3>Built in the open</h3>
+      <p>MeshCue is free and open-source software. Every line of code, every device spec, every protocol. Fork it, audit it, improve it.</p>
+      <div class="repo-links">
+        <a href="https://github.com/TinkClaw/meshcue-forge" target="_blank" class="repo-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          meshcue-forge
+        </a>
+        <a href="https://github.com/TinkClaw" target="_blank" class="repo-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          All TinkClaw repos
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Start building for<br><span class="gr">your community</span></h2>
+    <p>Open Forge, describe what your clinic needs, and get buildable device specs in seconds. No signup required.</p>
+    <div class="hero-actions">
+      <a href="https://forge.meshcue.com" class="btn-primary">
+        Open Forge
+      </a>
+      <a href="https://github.com/TinkClaw/meshcue-forge" target="_blank" class="btn-secondary">
+        Read the Docs
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────── -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">
+      MeshCue &mdash; Open healthcare infrastructure. Built by <a href="https://github.com/TinkClaw" style="color: var(--text-muted); text-decoration: underline;">TinkClaw</a>.
+    </div>
+    <div class="footer-links">
+      <a href="https://forge.meshcue.com">Forge</a>
+      <a href="https://github.com/TinkClaw/meshcue-forge">GitHub</a>
+      <a href="mailto:hello@meshcue.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Scripts ────────────────────────────── -->
+<script>
+// Intersection Observer for fade-up animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Mesh network canvas animation
+(function() {
+  const canvas = document.getElementById('meshCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], mouse = { x: -1000, y: -1000 };
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = canvas.width = rect.width * devicePixelRatio;
+    H = canvas.height = rect.height * devicePixelRatio;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+  }
+
+  function createNodes() {
+    nodes = [];
+    const count = Math.min(Math.floor((W / devicePixelRatio) / 18), 50);
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * (W / devicePixelRatio),
+        y: Math.random() * (H / devicePixelRatio),
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 1.5,
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W / devicePixelRatio, H / devicePixelRatio);
+    const maxDist = 120;
+
+    // Draw connections
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          const alpha = (1 - dist / maxDist) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(74, 222, 128, ${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw nodes
+    for (const n of nodes) {
+      const dmx = n.x - mouse.x, dmy = n.y - mouse.y;
+      const dm = Math.sqrt(dmx * dmx + dmy * dmy);
+      const glow = dm < 100 ? (1 - dm / 100) * 0.6 : 0;
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r + glow * 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(74, 222, 128, ${0.4 + glow})`;
+      ctx.fill();
+
+      // Move
+      n.x += n.vx;
+      n.y += n.vy;
+      const bw = W / devicePixelRatio, bh = H / devicePixelRatio;
+      if (n.x < 0 || n.x > bw) n.vx *= -1;
+      if (n.y < 0 || n.y > bh) n.vy *= -1;
+      n.x = Math.max(0, Math.min(bw, n.x));
+      n.y = Math.max(0, Math.min(bh, n.y));
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  canvas.parentElement.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+
+  resize();
+  createNodes();
+  draw();
+  window.addEventListener('resize', () => { resize(); createNodes(); });
+})();
+</script>
+</body>
+</html>
